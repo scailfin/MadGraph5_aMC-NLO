@@ -12,6 +12,7 @@ RUN apt-get -qq -y update && \
       g++ \
       gfortran \
       make \
+      cmake \
       vim \
       zlibc \
       zlib1g-dev \
