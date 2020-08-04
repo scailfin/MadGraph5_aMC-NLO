@@ -1,0 +1,15 @@
+# c.f. https://answers.launchpad.net/mg5amcnlo/+faq/2186
+generate p p > t t~ j
+output top_mass_scan
+launch top_mass_scan
+   set mt 170 # changing the top mass
+   set wt Auto # changing the top width
+   set ptj 40 # changing the ptj cut
+launch
+   set mt 175 # changing the top mass
+   set wt Auto # changing the top width
+launch
+   set mt 180 # changing the top mass
+   set wt Auto # changing the top width
+launch top_mass_scan -i
+   print_results --path=./top_mass_scan/cross_section_top.txt --format=short
