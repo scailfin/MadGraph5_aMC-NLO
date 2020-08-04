@@ -85,7 +85,10 @@ ARG MG_VERSION=2.7.0
 RUN cd /usr/local && \
     wget -q https://launchpad.net/mg5amcnlo/python3/py3.0.2/+download/MG5_aMC_v${MG_VERSION}.py3.tar.gz && \
     tar xzf MG5_aMC_v${MG_VERSION}.py3.tar.gz && \
-    rm MG5_aMC_v${MG_VERSION}.py3.tar.gz
+    rm MG5_aMC_v${MG_VERSION}.py3.tar.gz && \
+    sed -i "s|# lhapdf_py3 = lhapdf-config|lhapdf_py3 = $(find /usr/local -iname lhapdf-config)|" $(find /usr/local/ -iname mg5_configuration.txt) && \
+    sed -i "s|# pythia8_path = ./HEPTools/pythia8|pythia8_path = /usr/local|" $(find /usr/local/ -iname mg5_configuration.txt) && \
+    sed -i "s|# fastjet = fastjet-config|fastjet = $(find /usr/local -iname fastjet-config)|" $(find /usr/local/ -iname mg5_configuration.txt)
 
 # Enable tab completion by uncommenting it from /etc/bash.bashrc
 # The relevant lines are those below the phrase "enable bash completion in interactive shells"
