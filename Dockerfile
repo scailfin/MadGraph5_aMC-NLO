@@ -24,6 +24,27 @@ RUN apt-get -qq -y update && \
     apt-get -y autoremove && \
     rm -rf /var/lib/apt/lists/*
 
+# Install HepMC
+ARG HEPMC_VERSION=3.2.2
+RUN mkdir /code && \
+    cd /code && \
+    wget https://hepmc.web.cern.ch/hepmc/releases/HepMC3-${HEPMC_VERSION}.tar.gz && \
+    tar xvfz HepMC3-${HEPMC_VERSION}.tar.gz && \
+    mv HepMC3-${HEPMC_VERSION} src && \
+    mkdir build && \
+    cd build && \
+    cmake \
+      -DCMAKE_CXX_COMPILER=$(which g++) \
+      -DCMAKE_BUILD_TYPE=Release \
+      -Dbuild_docs:BOOL=OFF \
+      -Dmomentum:STRING=MEV \
+      -Dlength:STRING=MM \
+      -DCMAKE_INSTALL_PREFIX=/usr/local \
+      ../src && \
+    cmake --build . -- -j$(($(nproc) - 1)) && \
+    cmake --build . --target install && \
+    rm -rf /code
+
 # Install FastJet
 ARG FASTJET_VERSION=3.3.4
 RUN mkdir /code && \
