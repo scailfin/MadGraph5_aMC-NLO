@@ -38,8 +38,6 @@ RUN mkdir /code && \
     cmake \
       -DCMAKE_CXX_COMPILER=$(which g++) \
       -DCMAKE_BUILD_TYPE=Release \
-      -Dmomentum:STRING=MEV \
-      -Dlength:STRING=MM \
       -DCMAKE_INSTALL_PREFIX=/usr/local \
       -DHEPMC3_BUILD_DOCS=OFF \
       -DHEPMC3_ENABLE_ROOTIO=OFF \
