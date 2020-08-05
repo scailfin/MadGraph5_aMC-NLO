@@ -117,7 +117,7 @@ RUN cp /root/.profile ${HOME}/.profile && \
     echo 'export PATH=${HOME}/.local/bin:$PATH' >> ${HOME}/.bashrc && \
     echo 'export PATH=/usr/local/MG5_aMC_v2_7_0_py3/bin:$PATH' >> ${HOME}/.bashrc && \
     python -m pip install --upgrade --no-cache-dir pip setuptools wheel && \
-    python -m pip install --no-cache-dir six
+    python -m pip install --no-cache-dir six numpy
 
 #ENV USER docker
 #USER docker
