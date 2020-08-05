@@ -34,14 +34,18 @@ RUN mkdir /code && \
     mv HepMC3-${HEPMC_VERSION} src && \
     mkdir build && \
     cd build && \
+    export PYTHON_MINOR_VERSION=${PYTHON_VERSION::-2} && \
     cmake \
       -DCMAKE_CXX_COMPILER=$(which g++) \
       -DCMAKE_BUILD_TYPE=Release \
-      -Dbuild_docs=OFF \
       -Dmomentum:STRING=MEV \
       -Dlength:STRING=MM \
-      -DHEPMC3_ENABLE_ROOTIO=OFF \
       -DCMAKE_INSTALL_PREFIX=/usr/local \
+      -DHEPMC3_BUILD_DOCS=OFF \
+      -DHEPMC3_ENABLE_ROOTIO=OFF \
+      -DHEPMC3_ENABLE_PYTHON=ON \
+      -DHEPMC3_PYTHON_VERSIONS=${PYTHON_MINOR_VERSION} \
+      -DHEPMC3_Python_SITEARCH${Python_VERSION_MAJOR}${Python_VERSION_MINOR}=/usr/local/lib/python${PYTHON_MINOR_VERSION}/site-packages \
       ../src && \
     cmake --build . -- -j$(($(nproc) - 1)) && \
     cmake --build . --target install && \
