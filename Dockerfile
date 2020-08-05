@@ -37,9 +37,10 @@ RUN mkdir /code && \
     cmake \
       -DCMAKE_CXX_COMPILER=$(which g++) \
       -DCMAKE_BUILD_TYPE=Release \
-      -Dbuild_docs:BOOL=OFF \
+      -Dbuild_docs=OFF \
       -Dmomentum:STRING=MEV \
       -Dlength:STRING=MM \
+      -DHEPMC3_ENABLE_ROOTIO=OFF \
       -DCMAKE_INSTALL_PREFIX=/usr/local \
       ../src && \
     cmake --build . -- -j$(($(nproc) - 1)) && \
