@@ -109,6 +109,7 @@ RUN cd /usr/local && \
     wget -q https://launchpad.net/mg5amcnlo/python3/py3.0.2/+download/MG5_aMC_v${MG_VERSION}.py3.tar.gz && \
     tar xzf MG5_aMC_v${MG_VERSION}.py3.tar.gz && \
     rm MG5_aMC_v${MG_VERSION}.py3.tar.gz && \
+    echo "install mg5amc_py8_interface" | mg5_aMC && \
     sed -i "s|# lhapdf_py3 = lhapdf-config|lhapdf_py3 = $(find /usr/local -iname lhapdf-config)|" $(find /usr/local/ -iname mg5_configuration.txt) && \
     sed -i "s|# pythia8_path = ./HEPTools/pythia8|pythia8_path = /usr/local|" $(find /usr/local/ -iname mg5_configuration.txt) && \
     sed -i "s|# fastjet = fastjet-config|fastjet = $(find /usr/local -iname fastjet-config)|" $(find /usr/local/ -iname mg5_configuration.txt)
