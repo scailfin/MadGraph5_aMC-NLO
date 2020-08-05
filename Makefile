@@ -6,7 +6,7 @@ image:
 	docker build . \
 	-f Dockerfile \
 	--build-arg BUILDER_IMAGE=python:3.8-slim \
-	--build-arg HEPMC_VERSION=3.2.2 \
+	--build-arg HEPMC_VERSION=2.06.11 \
 	--build-arg FASTJET_VERSION=3.3.4 \
 	--build-arg LHAPDF_VERSION=6.3.0 \
 	--build-arg PYTHIA_VERSION=8302 \
@@ -20,7 +20,7 @@ test:
 	docker build . \
 	-f Dockerfile \
 	--build-arg BUILDER_IMAGE=python:3.8-slim \
-	--build-arg HEPMC_VERSION=3.2.2 \
+	--build-arg HEPMC_VERSION=2.06.11 \
 	--build-arg FASTJET_VERSION=3.3.4 \
 	--build-arg LHAPDF_VERSION=6.3.0 \
 	--build-arg PYTHIA_VERSION=8302 \

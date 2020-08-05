@@ -25,25 +25,23 @@ RUN apt-get -qq -y update && \
     apt-get -y autoremove && \
     rm -rf /var/lib/apt/lists/*
 
-# Install HepMC
-ARG HEPMC_VERSION=3.2.2
+# Install HepMC2
+# (HepMC3 currently not compatible with MadGraph5_aMC)
+ARG HEPMC_VERSION=2.06.11
 RUN mkdir /code && \
     cd /code && \
-    wget https://hepmc.web.cern.ch/hepmc/releases/HepMC3-${HEPMC_VERSION}.tar.gz && \
-    tar xvfz HepMC3-${HEPMC_VERSION}.tar.gz && \
-    mv HepMC3-${HEPMC_VERSION} src && \
+    wget http://hepmc.web.cern.ch/hepmc/releases/hepmc${HEPMC_VERSION}.tgz && \
+    tar xvfz hepmc${HEPMC_VERSION}.tgz && \
+    mv HepMC-${HEPMC_VERSION} src && \
     mkdir build && \
     cd build && \
-    export PYTHON_MINOR_VERSION=${PYTHON_VERSION::-2} && \
     cmake \
       -DCMAKE_CXX_COMPILER=$(which g++) \
       -DCMAKE_BUILD_TYPE=Release \
+      -Dbuild_docs:BOOL=OFF \
+      -Dmomentum:STRING=MEV \
+      -Dlength:STRING=MM \
       -DCMAKE_INSTALL_PREFIX=/usr/local \
-      -DHEPMC3_BUILD_DOCS=OFF \
-      -DHEPMC3_ENABLE_ROOTIO=OFF \
-      -DHEPMC3_ENABLE_PYTHON=ON \
-      -DHEPMC3_PYTHON_VERSIONS=${PYTHON_MINOR_VERSION} \
-      -DHEPMC3_Python_SITEARCH${Python_VERSION_MAJOR}${Python_VERSION_MINOR}=/usr/local/lib/python${PYTHON_MINOR_VERSION}/site-packages \
       ../src && \
     cmake --build . -- -j$(($(nproc) - 1)) && \
     cmake --build . --target install && \
