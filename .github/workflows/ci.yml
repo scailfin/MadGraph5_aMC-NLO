@@ -17,7 +17,7 @@ jobs:
       if: "!(startsWith(github.ref, 'refs/tags/'))"
       uses: docker/build-push-action@v1
       with:
-        repository: matthewfeickert/madgraph5-amc-nlo
+        repository: scailfin/madgraph5-amc-nlo
         dockerfile: Dockerfile
         tags: test
         tag_with_sha: true
@@ -30,5 +30,5 @@ jobs:
         docker run --rm
         -v $PWD:$PWD
         -w $PWD
-        matthewfeickert/madgraph5-amc-nlo:test
+        scailfin/madgraph5-amc-nlo:test
         "mg5_aMC tests/test_top_mass_scan.txt"
