@@ -10,9 +10,9 @@ image:
 	--build-arg LHAPDF_VERSION=6.3.0 \
 	--build-arg PYTHIA_VERSION=8302 \
 	--build-arg MG_VERSION=2.7.0 \
-	-t matthewfeickert/madgraph5-amc-nlo:latest \
-	-t matthewfeickert/madgraph5-amc-nlo:2.7.0 \
-	-t matthewfeickert/madgraph5-amc-nlo:2.7.0-python3 \
+	-t scailfin/madgraph5-amc-nlo:latest \
+	-t scailfin/madgraph5-amc-nlo:2.7.0 \
+	-t scailfin/madgraph5-amc-nlo:2.7.0-python3 \
 	--compress
 
 test:
@@ -23,4 +23,4 @@ test:
 	--build-arg LHAPDF_VERSION=6.3.0 \
 	--build-arg PYTHIA_VERSION=8302 \
 	--build-arg MG_VERSION=2.7.0 \
-	-t matthewfeickert/madgraph5-amc-nlo:debug-local
+	-t scailfin/madgraph5-amc-nlo:debug-local

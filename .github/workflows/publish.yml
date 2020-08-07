@@ -20,7 +20,7 @@ jobs:
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-        repository: matthewfeickert/madgraph5-amc-nlo
+        repository: scailfin/madgraph5-amc-nlo
         dockerfile: Dockerfile
         tags: latest,mg5_amc2.7.0,mg5_amc2.7.0-python3
     - name: Build and Publish to Registry with Release Tag
@@ -29,7 +29,7 @@ jobs:
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-        repository: matthewfeickert/madgraph5-amc-nlo
+        repository: scailfin/madgraph5-amc-nlo
         dockerfile: Dockerfile
         tags: latest,latest-stable,mg5_amc2.7.0,mg5_amc2.7.0-python3
         tag_with_ref: true
