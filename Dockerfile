@@ -84,8 +84,8 @@ RUN mkdir /code && \
 ARG MG_VERSION=2.8.0
 RUN cd /usr/local && \
     wget -q https://launchpad.net/mg5amcnlo/2.0/2.8.x/+download/MG5_aMC_v${MG_VERSION}.tar.gz && \
-    tar xzf MG5_aMC_v${MG_VERSION}.py3.tar.gz && \
-    rm MG5_aMC_v${MG_VERSION}.py3.tar.gz
+    tar xzf MG5_aMC_v${MG_VERSION}.tar.gz && \
+    rm MG5_aMC_v${MG_VERSION}.tar.gz
 
 # Enable tab completion by uncommenting it from /etc/bash.bashrc
 # The relevant lines are those below the phrase "enable bash completion in interactive shells"
