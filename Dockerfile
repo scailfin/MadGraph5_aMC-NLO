@@ -115,7 +115,7 @@ RUN cp /root/.profile ${HOME}/.profile && \
     cp /root/.bashrc ${HOME}/.bashrc && \
     echo "" >> ${HOME}/.bashrc && \
     echo 'export PATH=${HOME}/.local/bin:$PATH' >> ${HOME}/.bashrc && \
-    echo 'export PATH=/usr/local/MG5_aMC_v2_8_0_py3/bin:$PATH' >> ${HOME}/.bashrc && \
+    echo 'export PATH=/usr/local/MG5_aMC_v2_8_0/bin:$PATH' >> ${HOME}/.bashrc && \
     python -m pip install --upgrade --no-cache-dir pip setuptools wheel && \
     python -m pip install --no-cache-dir six numpy
 
@@ -124,7 +124,7 @@ RUN cp /root/.profile ${HOME}/.profile && \
 ENV PYTHONPATH=/usr/local/lib:$PYTHONPATH
 ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 ENV PATH ${HOME}/.local/bin:$PATH
-ENV PATH /usr/local/MG5_aMC_v2_8_0_py3/bin:$PATH
+ENV PATH /usr/local/MG5_aMC_v2_8_0/bin:$PATH
 
 ENTRYPOINT ["/bin/bash", "-l", "-c"]
 CMD ["/bin/bash"]
