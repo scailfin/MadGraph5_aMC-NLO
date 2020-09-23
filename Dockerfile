@@ -81,7 +81,7 @@ RUN mkdir /code && \
     rm -rf /code
 
 # Install MadGraph5_aMC@NLO for Python 3
-ARG MG_VERSION=2.7.3
+ARG MG_VERSION=2.8.0
 RUN cd /usr/local && \
     wget -q https://launchpad.net/mg5amcnlo/2.0/2.7.x/+download/MG5_aMC_v${MG_VERSION}.py3.tar.gz && \
     tar xzf MG5_aMC_v${MG_VERSION}.py3.tar.gz && \

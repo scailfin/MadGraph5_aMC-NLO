@@ -22,7 +22,7 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
         repository: scailfin/madgraph5-amc-nlo
         dockerfile: Dockerfile
-        tags: latest,mg5_amc2.7.3,mg5_amc2.7.3-python3
+        tags: latest,mg5_amc2.8.0,mg5_amc2.8.0-python3
     - name: Build and Publish to Registry with Release Tag
       if: startsWith(github.ref, 'refs/tags/')
       uses: docker/build-push-action@v1
@@ -31,5 +31,5 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
         repository: scailfin/madgraph5-amc-nlo
         dockerfile: Dockerfile
-        tags: latest,latest-stable,mg5_amc2.7.3,mg5_amc2.7.3-python3
+        tags: latest,latest-stable,mg5_amc2.8.0,mg5_amc2.8.0-python3
         tag_with_ref: true

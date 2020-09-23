@@ -10,7 +10,7 @@ Docker image for Python 3 compliant [MadGraph5_aMC@NLO](https://launchpad.net/mg
 
 The Docker image contains:
 
-* [MadGraph5_aMC@NLO](https://launchpad.net/mg5amcnlo) `v2.7.3`
+* [MadGraph5_aMC@NLO](https://launchpad.net/mg5amcnlo) `v2.8.0`
 * Python 3.8
 * [FastJet](http://fastjet.fr/) `v3.3.4`
 * [LHAPDF](https://lhapdf.hepforge.org/) `v6.3.0`
@@ -22,7 +22,7 @@ The Docker image contains:
 - Use `docker pull` to pull down the image corresponding to the tag. For example:
 
 ```
-docker pull scailfin/madgraph5-amc-nlo:mg5_amc2.7.3-python3
+docker pull scailfin/madgraph5-amc-nlo:mg5_amc2.8.0-python3
 ```
 
 ## Tests
@@ -30,5 +30,5 @@ docker pull scailfin/madgraph5-amc-nlo:mg5_amc2.7.3-python3
 As an example test you can run the [top mass scan example](https://answers.launchpad.net/mg5amcnlo/+faq/2186) in the `tests` directory inside the Docker container by running the following from the top level directory of this repository
 
 ```
-docker run --rm -v $PWD:$PWD -w $PWD scailfin/madgraph5-amc-nlo:mg5_amc2.7.3-python3 "mg5_aMC tests/test_top_mass_scan.txt"
+docker run --rm -v $PWD:$PWD -w $PWD scailfin/madgraph5-amc-nlo:mg5_amc2.8.0-python3 "mg5_aMC tests/test_top_mass_scan.txt"
 ```
