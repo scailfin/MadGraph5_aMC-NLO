@@ -81,7 +81,7 @@ RUN mkdir /code && \
     rm -rf /code
 
 # Install MadGraph5_aMC@NLO for Python 3
-ARG MG_VERSION=2.8.0
+ARG MG_VERSION=2.8.1
 RUN cd /usr/local && \
     wget -q https://launchpad.net/mg5amcnlo/2.0/2.8.x/+download/MG5_aMC_v${MG_VERSION}.tar.gz && \
     tar xzf MG5_aMC_v${MG_VERSION}.tar.gz && \
@@ -102,7 +102,7 @@ RUN export SED_RANGE="$(($(sed -n '\|enable bash completion in interactive shell
 #    chown -R --from=root docker /usr/local
 
 ## Move files someplace
-#RUN cp -r /usr/local/MG5_aMC_v2_8_0 /home/docker/ && \
+#RUN cp -r /usr/local/MG5_aMC_v2_8_1 /home/docker/ && \
 #    chown -R --from=root docker /home/docker
 
 # Use C.UTF-8 locale to avoid issues with ASCII encoding
@@ -115,7 +115,7 @@ RUN cp /root/.profile ${HOME}/.profile && \
     cp /root/.bashrc ${HOME}/.bashrc && \
     echo "" >> ${HOME}/.bashrc && \
     echo 'export PATH=${HOME}/.local/bin:$PATH' >> ${HOME}/.bashrc && \
-    echo 'export PATH=/usr/local/MG5_aMC_v2_8_0/bin:$PATH' >> ${HOME}/.bashrc && \
+    echo 'export PATH=/usr/local/MG5_aMC_v2_8_1/bin:$PATH' >> ${HOME}/.bashrc && \
     python -m pip install --upgrade --no-cache-dir pip setuptools wheel && \
     python -m pip install --no-cache-dir six numpy
 
@@ -124,7 +124,7 @@ RUN cp /root/.profile ${HOME}/.profile && \
 ENV PYTHONPATH=/usr/local/lib:$PYTHONPATH
 ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 ENV PATH ${HOME}/.local/bin:$PATH
-ENV PATH /usr/local/MG5_aMC_v2_8_0/bin:$PATH
+ENV PATH /usr/local/MG5_aMC_v2_8_1/bin:$PATH
 
 ENTRYPOINT ["/bin/bash", "-l", "-c"]
 CMD ["/bin/bash"]
