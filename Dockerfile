@@ -24,6 +24,40 @@ RUN apt-get -qq -y update && \
     apt-get -y autoremove && \
     rm -rf /var/lib/apt/lists/*
 
+# Install FastJet
+ARG FASTJET_VERSION=3.3.4
+RUN mkdir /code && \
+    cd /code && \
+    wget http://fastjet.fr/repo/fastjet-${FASTJET_VERSION}.tar.gz && \
+    tar xvfz fastjet-${FASTJET_VERSION}.tar.gz && \
+    cd fastjet-${FASTJET_VERSION} && \
+    ./configure --help && \
+    export CXX=$(which g++) && \
+    export PYTHON=$(which python) && \
+    ./configure \
+      --prefix=/usr/local \
+      --enable-pyext=yes && \
+    make -j$(($(nproc) - 1)) && \
+    make check && \
+    make install && \
+    rm -rf /code
+
+# Install LHAPDF
+ARG LHAPDF_VERSION=6.3.0
+RUN mkdir /code && \
+    cd /code && \
+    wget https://lhapdf.hepforge.org/downloads/?f=LHAPDF-${LHAPDF_VERSION}.tar.gz -O LHAPDF-${LHAPDF_VERSION}.tar.gz && \
+    tar xvfz LHAPDF-${LHAPDF_VERSION}.tar.gz && \
+    cd LHAPDF-${LHAPDF_VERSION} && \
+    ./configure --help && \
+    export CXX=$(which g++) && \
+    export PYTHON=$(which python) && \
+    ./configure \
+      --prefix=/usr/local && \
+    make -j$(($(nproc) - 1)) && \
+    make install && \
+    rm -rf /code
+
 # Install MadGraph5_aMC@NLO for Python 3
 ARG MG_VERSION=2.8.1
 RUN cd /usr/local && \
