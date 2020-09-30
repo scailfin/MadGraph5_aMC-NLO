@@ -31,9 +31,6 @@ RUN cd /usr/local && \
     tar xzf MG5_aMC_v${MG_VERSION}.tar.gz && \
     rm MG5_aMC_v${MG_VERSION}.tar.gz
 
-# Install all of software
-RUN PATH=/usr/local/MG5_aMC_v2_8_1/bin:$PATH echo "install pythia8" | mg5_aMC
-
 # Enable tab completion by uncommenting it from /etc/bash.bashrc
 # The relevant lines are those below the phrase "enable bash completion in interactive shells"
 RUN export SED_RANGE="$(($(sed -n '\|enable bash completion in interactive shells|=' /etc/bash.bashrc)+1)),$(($(sed -n '\|enable bash completion in interactive shells|=' /etc/bash.bashrc)+7))" && \
@@ -72,6 +69,9 @@ ENV PYTHONPATH=/usr/local/lib:$PYTHONPATH
 ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 ENV PATH ${HOME}/.local/bin:$PATH
 ENV PATH /usr/local/MG5_aMC_v2_8_1/bin:$PATH
+
+# Install all of software
+RUN echo "install pythia8" | mg5_aMC
 
 ENTRYPOINT ["/bin/bash", "-l", "-c"]
 CMD ["/bin/bash"]
