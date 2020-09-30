@@ -71,7 +71,8 @@ ENV PATH ${HOME}/.local/bin:$PATH
 ENV PATH /usr/local/MG5_aMC_v2_8_1/bin:$PATH
 
 # Install all of software
-RUN echo "install pythia8" | mg5_aMC
+RUN echo "install lhapdf6" | mg5_aMC && \
+    echo "install pythia8" | mg5_aMC
 
 ENTRYPOINT ["/bin/bash", "-l", "-c"]
 CMD ["/bin/bash"]
