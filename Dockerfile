@@ -12,6 +12,7 @@ RUN apt-get -qq -y update && \
       g++ \
       gfortran \
       make \
+      cmake \
       vim \
       zlibc \
       zlib1g-dev \
@@ -23,6 +24,27 @@ RUN apt-get -qq -y update && \
     apt-get -y autoclean && \
     apt-get -y autoremove && \
     rm -rf /var/lib/apt/lists/*
+
+# Install HepMC
+ARG HEPMC_VERSION=2.06.11
+RUN mkdir /code && \
+    cd /code && \
+    wget http://hepmc.web.cern.ch/hepmc/releases/hepmc${HEPMC_VERSION}.tgz && \
+    tar xvfz hepmc${HEPMC_VERSION}.tgz && \
+    mv HepMC-${HEPMC_VERSION} src && \
+    cmake \
+      -DCMAKE_CXX_COMPILER=$(which g++) \
+      -DCMAKE_BUILD_TYPE=Release \
+      -Dbuild_docs:BOOL=OFF \
+      -Dmomentum:STRING=MEV \
+      -Dlength:STRING=MM \
+      -DCMAKE_INSTALL_PREFIX=/usr/local \
+      -S src \
+      -B build && \
+    cmake build -L && \
+    cmake --build build -- -j$(($(nproc) - 1)) && \
+    cmake --build build --target install && \
+    rm -rf /code
 
 # Install FastJet
 ARG FASTJET_VERSION=3.3.4
@@ -73,6 +95,9 @@ RUN mkdir /code && \
       --arch=Linux \
       --cxx=g++ \
       --with-gzip \
+      --with-hepmc2 \
+      --with-lhapdf6 \
+      --with-fastjet3 \
       --with-python-bin=/usr/local/bin \
       --with-python-lib=/usr/lib/python${PYTHON_MINOR_VERSION} \
       --with-python-include=/usr/include/python${PYTHON_MINOR_VERSION} && \
