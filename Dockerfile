@@ -39,7 +39,6 @@ RUN mkdir /code && \
       -Dmomentum:STRING=MEV \
       -Dlength:STRING=MM \
       -DCMAKE_INSTALL_PREFIX=/usr/local \
-      src && \
       -S src \
       -B build && \
     cmake build -L && \
