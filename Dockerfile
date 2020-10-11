@@ -114,6 +114,7 @@ RUN cd /usr/local && \
 
 # Change the MadGraph5_aMC@NLO configuration settings
 RUN sed -i '/fastjet =/s/^# //g' /usr/local/MG5_aMC_v2_8_1/input/mg5_configuration.txt &&
+    sed -i '/lhapdf_py3 =/s/^# //g' /usr/local/MG5_aMC_v2_8_1/input/mg5_configuration.txt
 
 # Enable tab completion by uncommenting it from /etc/bash.bashrc
 # The relevant lines are those below the phrase "enable bash completion in interactive shells"
