@@ -100,7 +100,7 @@ RUN mkdir /code && \
       --with-fastjet3 \
       --with-python-bin=/usr/local/bin \
       --with-python-lib=/usr/local/lib/python${PYTHON_MINOR_VERSION} \
-      --with-python-include=/usr/include/python${PYTHON_MINOR_VERSION} && \
+      --with-python-include=/usr/local/include/python${PYTHON_MINOR_VERSION} && \
     make -j$(($(nproc) - 1)) && \
     make install && \
     rm -rf /code
