@@ -26,27 +26,6 @@ RUN apt-get -qq -y update && \
     apt-get -y autoremove && \
     rm -rf /var/lib/apt/lists/*
 
-# Install HepMC
-ARG HEPMC_VERSION=2.06.11
-RUN mkdir /code && \
-    cd /code && \
-    wget http://hepmc.web.cern.ch/hepmc/releases/hepmc${HEPMC_VERSION}.tgz && \
-    tar xvfz hepmc${HEPMC_VERSION}.tgz && \
-    mv HepMC-${HEPMC_VERSION} src && \
-    cmake \
-      -DCMAKE_CXX_COMPILER=$(which g++) \
-      -DCMAKE_BUILD_TYPE=Release \
-      -Dbuild_docs:BOOL=OFF \
-      -Dmomentum:STRING=MEV \
-      -Dlength:STRING=MM \
-      -DCMAKE_INSTALL_PREFIX=/usr/local \
-      -S src \
-      -B build && \
-    cmake build -L && \
-    cmake --build build -- -j$(($(nproc) - 1)) && \
-    cmake --build build --target install && \
-    rm -rf /code
-
 # Install FastJet
 ARG FASTJET_VERSION=3.3.4
 RUN mkdir /code && \
@@ -81,32 +60,7 @@ RUN mkdir /code && \
     make install && \
     rm -rf /code
 
-# Install PYTHIA
-ARG PYTHIA_VERSION=8243
-# PYTHON_VERSION already exists in the base image
-RUN mkdir /code && \
-    cd /code && \
-    wget --quiet http://home.thep.lu.se/~torbjorn/pythia8/pythia${PYTHIA_VERSION}.tgz && \
-    tar xvfz pythia${PYTHIA_VERSION}.tgz && \
-    cd pythia${PYTHIA_VERSION} && \
-    ./configure --help && \
-    export PYTHON_MINOR_VERSION=${PYTHON_VERSION::-2} && \
-    ./configure \
-      --prefix=/usr/local \
-      --arch=Linux \
-      --cxx=g++ \
-      --with-gzip \
-      --with-hepmc2 \
-      --with-lhapdf6 \
-      --with-fastjet3 \
-      --with-python-bin=/usr/local/bin/ \
-      --with-python-lib=/usr/local/lib/python${PYTHON_MINOR_VERSION} \
-      --with-python-include=/usr/local/include/python${PYTHON_MINOR_VERSION} && \
-    make -j$(($(nproc) - 1)) && \
-    make install && \
-    rm -rf /code
-
-# Install MadGraph5_aMC@NLO for Python 3 and PYTHIA 8 interface
+# Install MadGraph5_aMC@NLO for Python 3
 ARG MG_VERSION=2.9.2
 RUN cd /usr/local && \
     wget --quiet https://launchpad.net/mg5amcnlo/2.0/2.9.x/+download/MG5_aMC_v${MG_VERSION}.tar.gz && \
@@ -129,9 +83,7 @@ RUN cd /usr/local && \
 
 # Change the MadGraph5_aMC@NLO configuration settings
 RUN sed -i '/fastjet =/s/^# //g' /usr/local/MG5_aMC/input/mg5_configuration.txt && \
-    sed -i '/lhapdf_py3 =/s/^# //g' /usr/local/MG5_aMC/input/mg5_configuration.txt && \
-    sed -i 's|# pythia8_path.*|pythia8_path = /usr/local|g' /usr/local/MG5_aMC/input/mg5_configuration.txt && \
-    sed -i '/mg5amc_py8_interface_path =/s/^# //g' /usr/local/MG5_aMC/input/mg5_configuration.txt
+    sed -i '/lhapdf_py3 =/s/^# //g' /usr/local/MG5_aMC/input/mg5_configuration.txt
 
 # Enable tab completion by uncommenting it from /etc/bash.bashrc
 # The relevant lines are those below the phrase "enable bash completion in interactive shells"
