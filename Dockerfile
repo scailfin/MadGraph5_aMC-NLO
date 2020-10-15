@@ -85,10 +85,6 @@ RUN cd /usr/local && \
 RUN sed -i '/fastjet =/s/^# //g' /usr/local/MG5_aMC/input/mg5_configuration.txt && \
     sed -i '/lhapdf_py3 =/s/^# //g' /usr/local/MG5_aMC/input/mg5_configuration.txt
 
-# Have mg5_aMC install things
-RUN echo "install pythia8" | /usr/local/MG5_aMC_v2_8_1/bin/mg5_aMC && \
-    echo "install mg5amc_py8_interface" | /usr/local/MG5_aMC_v2_8_1/bin/mg5_aMC
-
 # Enable tab completion by uncommenting it from /etc/bash.bashrc
 # The relevant lines are those below the phrase "enable bash completion in interactive shells"
 RUN export SED_RANGE="$(($(sed -n '\|enable bash completion in interactive shells|=' /etc/bash.bashrc)+1)),$(($(sed -n '\|enable bash completion in interactive shells|=' /etc/bash.bashrc)+7))" && \
@@ -124,6 +120,10 @@ ENV PYTHONPATH=/usr/local/lib:/usr/local/MG5_aMC:$PYTHONPATH
 ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 ENV PATH ${HOME}/.local/bin:$PATH
 ENV PATH /usr/local/MG5_aMC/bin:$PATH
+
+# Have mg5_aMC install things
+RUN echo "install pythia8" | mg5_aMC && \
+    echo "install mg5amc_py8_interface" | mg5_aMC
 
 ENTRYPOINT ["/bin/bash", "-l", "-c"]
 CMD ["/bin/bash"]
