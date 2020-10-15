@@ -96,6 +96,8 @@ RUN mkdir /code && \
       --cxx=g++ \
       --with-gzip \
       --with-hepmc2 \
+      --with-hepmc2-lib=/usr/local/lib \
+      --with-hepmc2-include=/usr/local/include/HepMC \
       --with-lhapdf6 \
       --with-fastjet3 \
       --with-python-bin=/usr/local/bin \
