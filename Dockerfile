@@ -86,8 +86,8 @@ RUN sed -i '/fastjet =/s/^# //g' /usr/local/MG5_aMC/input/mg5_configuration.txt 
     sed -i '/lhapdf_py3 =/s/^# //g' /usr/local/MG5_aMC/input/mg5_configuration.txt
 
 # Have mg5_aMC install things
-RUN echo "install pythia8" | mg5_aMC && \
-    echo "install mg5amc_py8_interface" | mg5_aMC
+RUN echo "install pythia8" | /usr/local/MG5_aMC_v2_8_1/bin/mg5_aMC && \
+    echo "install mg5amc_py8_interface" | /usr/local/MG5_aMC_v2_8_1/bin/mg5_aMC
 
 # Enable tab completion by uncommenting it from /etc/bash.bashrc
 # The relevant lines are those below the phrase "enable bash completion in interactive shells"
