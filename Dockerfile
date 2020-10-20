@@ -105,14 +105,14 @@ RUN mkdir /code && \
     make install && \
     rm -rf /code
 
-# Install MadGraph5_aMC@NLO for Python 3
+# Install MadGraph5_aMC@NLO for Python 3 and PYTHIA 8 interface
 ARG MG_VERSION=2.8.1
 RUN cd /usr/local && \
     wget --quiet https://launchpad.net/mg5amcnlo/2.0/2.8.x/+download/MG5_aMC_v${MG_VERSION}.tar.gz && \
     tar xzf MG5_aMC_v${MG_VERSION}.tar.gz && \
-    rm MG5_aMC_v${MG_VERSION}.tar.gz
-
-RUN mkdir /code && \
+    rm MG5_aMC_v${MG_VERSION}.tar.gz && \
+    echo "Installing MG5aMC_PY8_interface" && \
+    mkdir /code && \
     cd /code && \
     wget --quiet http://madgraph.phys.ucl.ac.be/Downloads/MG5aMC_PY8_interface/MG5aMC_PY8_interface_V1.0.tar.gz && \
     mkdir -p /code/MG5aMC_PY8_interface && \
