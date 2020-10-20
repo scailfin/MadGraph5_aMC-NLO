@@ -81,7 +81,7 @@ RUN mkdir /code && \
     rm -rf /code
 
 # Install PYTHIA
-ARG PYTHIA_VERSION=8303
+ARG PYTHIA_VERSION=8243
 # PYTHON_VERSION already exists in the base image
 RUN mkdir /code && \
     cd /code && \
