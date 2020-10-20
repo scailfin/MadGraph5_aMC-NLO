@@ -85,7 +85,7 @@ ARG PYTHIA_VERSION=8243
 # PYTHON_VERSION already exists in the base image
 RUN mkdir /code && \
     cd /code && \
-    wget http://home.thep.lu.se/~torbjorn/pythia8/pythia${PYTHIA_VERSION}.tgz && \
+    wget --quiet http://home.thep.lu.se/~torbjorn/pythia8/pythia${PYTHIA_VERSION}.tgz && \
     tar xvfz pythia${PYTHIA_VERSION}.tgz && \
     cd pythia${PYTHIA_VERSION} && \
     ./configure --help && \
@@ -108,13 +108,13 @@ RUN mkdir /code && \
 # Install MadGraph5_aMC@NLO for Python 3
 ARG MG_VERSION=2.8.1
 RUN cd /usr/local && \
-    wget -q https://launchpad.net/mg5amcnlo/2.0/2.8.x/+download/MG5_aMC_v${MG_VERSION}.tar.gz && \
+    wget --quiet https://launchpad.net/mg5amcnlo/2.0/2.8.x/+download/MG5_aMC_v${MG_VERSION}.tar.gz && \
     tar xzf MG5_aMC_v${MG_VERSION}.tar.gz && \
     rm MG5_aMC_v${MG_VERSION}.tar.gz
 
 RUN mkdir /code && \
     cd /code && \
-    wget -q http://madgraph.phys.ucl.ac.be/Downloads/MG5aMC_PY8_interface/MG5aMC_PY8_interface_V1.0.tar.gz && \
+    wget --quiet http://madgraph.phys.ucl.ac.be/Downloads/MG5aMC_PY8_interface/MG5aMC_PY8_interface_V1.0.tar.gz && \
     mkdir -p /code/MG5aMC_PY8_interface && \
     tar -xf MG5aMC_PY8_interface_V1.0.tar.gz -C MG5aMC_PY8_interface && \
     cd MG5aMC_PY8_interface && \
