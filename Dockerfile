@@ -112,10 +112,24 @@ RUN cd /usr/local && \
     tar xzf MG5_aMC_v${MG_VERSION}.tar.gz && \
     rm MG5_aMC_v${MG_VERSION}.tar.gz
 
+RUN mkdir /code && \
+    cd /code && \
+    wget -q http://madgraph.phys.ucl.ac.be/Downloads/MG5aMC_PY8_interface/MG5aMC_PY8_interface_V1.0.tar.gz && \
+    mkdir -p /code/MG5aMC_PY8_interface && \
+    tar -xf MG5aMC_PY8_interface_V1.0.tar.gz -C MG5aMC_PY8_interface && \
+    cd MG5aMC_PY8_interface && \
+    python compile.py /usr/local/ --pythia8_makefile && \
+    mkdir -p /usr/local/MG5_aMC_v2_8_1/HEPTools/MG5aMC_PY8_interface && \
+    cp *.h /usr/local/MG5_aMC_v2_8_1/HEPTools/MG5aMC_PY8_interface/ && \
+    cp *_VERSION_ON_INSTALL /usr/local/MG5_aMC_v2_8_1/HEPTools/MG5aMC_PY8_interface/ && \
+    cp MG5aMC_PY8_interface /usr/local/MG5_aMC_v2_8_1/HEPTools/MG5aMC_PY8_interface/ && \
+    rm -rf /code
+
 # Change the MadGraph5_aMC@NLO configuration settings
 RUN sed -i '/fastjet =/s/^# //g' /usr/local/MG5_aMC_v2_8_1/input/mg5_configuration.txt && \
     sed -i '/lhapdf_py3 =/s/^# //g' /usr/local/MG5_aMC_v2_8_1/input/mg5_configuration.txt && \
-    sed -i 's|# pythia8_path.*|pythia8_path = /usr/local|g' /usr/local/MG5_aMC_v2_8_1/input/mg5_configuration.txt
+    sed -i 's|# pythia8_path.*|pythia8_path = /usr/local|g' /usr/local/MG5_aMC_v2_8_1/input/mg5_configuration.txt && \
+    sed -i '/mg5amc_py8_interface_path =/s/^# //g' /usr/local/MG5_aMC_v2_8_1/input/mg5_configuration.txt
 
 # Enable tab completion by uncommenting it from /etc/bash.bashrc
 # The relevant lines are those below the phrase "enable bash completion in interactive shells"
