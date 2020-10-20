@@ -98,7 +98,7 @@ RUN mkdir /code && \
       --with-hepmc2 \
       --with-lhapdf6 \
       --with-fastjet3 \
-      --with-python-bin=/usr/local/bin \
+      --with-python-bin=/usr/local/bin/ \
       --with-python-lib=/usr/local/lib/python${PYTHON_MINOR_VERSION} \
       --with-python-include=/usr/local/include/python${PYTHON_MINOR_VERSION} && \
     make -j$(($(nproc) - 1)) && \
