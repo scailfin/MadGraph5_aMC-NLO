@@ -15,7 +15,7 @@ The Docker image contains:
 * [HepMC2](http://hepmc.web.cern.ch/hepmc/) `v2.06.11`
 * [LHAPDF](https://lhapdf.hepforge.org/) `v6.3.0`
 * [FastJet](http://fastjet.fr/) `v3.3.4`
-* [PYTHIA](http://home.thep.lu.se/~torbjorn/Pythia.html) `v8.303`
+* [PYTHIA](http://home.thep.lu.se/~torbjorn/Pythia.html) `v8.243`
 
 ## Installation
 
@@ -31,5 +31,5 @@ docker pull scailfin/madgraph5-amc-nlo:mg5_amc2.8.1-python3
 As an example test you can run the [top mass scan example](https://answers.launchpad.net/mg5amcnlo/+faq/2186) in the `tests` directory inside the Docker container by running the following from the top level directory of this repository
 
 ```
-docker run --rm -v $PWD:$PWD -w $PWD scailfin/madgraph5-amc-nlo:mg5_amc2.8.1-python3 "mg5_aMC tests/test_top_mass_scan.txt"
+docker run --rm -v $PWD:$PWD -w $PWD scailfin/madgraph5-amc-nlo:mg5_amc2.8.1-python3 "lhapdf install NNPDF23_lo_as_0130_qed; mg5_aMC tests/test_top_mass_scan.txt"
 ```

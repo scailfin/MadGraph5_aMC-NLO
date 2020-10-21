@@ -81,11 +81,11 @@ RUN mkdir /code && \
     rm -rf /code
 
 # Install PYTHIA
-ARG PYTHIA_VERSION=8303
+ARG PYTHIA_VERSION=8243
 # PYTHON_VERSION already exists in the base image
 RUN mkdir /code && \
     cd /code && \
-    wget http://home.thep.lu.se/~torbjorn/pythia8/pythia${PYTHIA_VERSION}.tgz && \
+    wget --quiet http://home.thep.lu.se/~torbjorn/pythia8/pythia${PYTHIA_VERSION}.tgz && \
     tar xvfz pythia${PYTHIA_VERSION}.tgz && \
     cd pythia${PYTHIA_VERSION} && \
     ./configure --help && \
@@ -98,24 +98,38 @@ RUN mkdir /code && \
       --with-hepmc2 \
       --with-lhapdf6 \
       --with-fastjet3 \
-      --with-python-bin=/usr/local/bin \
+      --with-python-bin=/usr/local/bin/ \
       --with-python-lib=/usr/local/lib/python${PYTHON_MINOR_VERSION} \
       --with-python-include=/usr/local/include/python${PYTHON_MINOR_VERSION} && \
     make -j$(($(nproc) - 1)) && \
     make install && \
     rm -rf /code
 
-# Install MadGraph5_aMC@NLO for Python 3
+# Install MadGraph5_aMC@NLO for Python 3 and PYTHIA 8 interface
 ARG MG_VERSION=2.8.1
 RUN cd /usr/local && \
-    wget -q https://launchpad.net/mg5amcnlo/2.0/2.8.x/+download/MG5_aMC_v${MG_VERSION}.tar.gz && \
+    wget --quiet https://launchpad.net/mg5amcnlo/2.0/2.8.x/+download/MG5_aMC_v${MG_VERSION}.tar.gz && \
     tar xzf MG5_aMC_v${MG_VERSION}.tar.gz && \
-    rm MG5_aMC_v${MG_VERSION}.tar.gz
+    rm MG5_aMC_v${MG_VERSION}.tar.gz && \
+    echo "Installing MG5aMC_PY8_interface" && \
+    mkdir /code && \
+    cd /code && \
+    wget --quiet http://madgraph.phys.ucl.ac.be/Downloads/MG5aMC_PY8_interface/MG5aMC_PY8_interface_V1.0.tar.gz && \
+    mkdir -p /code/MG5aMC_PY8_interface && \
+    tar -xf MG5aMC_PY8_interface_V1.0.tar.gz -C MG5aMC_PY8_interface && \
+    cd MG5aMC_PY8_interface && \
+    python compile.py /usr/local/ --pythia8_makefile && \
+    mkdir -p /usr/local/MG5_aMC_v2_8_1/HEPTools/MG5aMC_PY8_interface && \
+    cp *.h /usr/local/MG5_aMC_v2_8_1/HEPTools/MG5aMC_PY8_interface/ && \
+    cp *_VERSION_ON_INSTALL /usr/local/MG5_aMC_v2_8_1/HEPTools/MG5aMC_PY8_interface/ && \
+    cp MG5aMC_PY8_interface /usr/local/MG5_aMC_v2_8_1/HEPTools/MG5aMC_PY8_interface/ && \
+    rm -rf /code
 
 # Change the MadGraph5_aMC@NLO configuration settings
 RUN sed -i '/fastjet =/s/^# //g' /usr/local/MG5_aMC_v2_8_1/input/mg5_configuration.txt && \
     sed -i '/lhapdf_py3 =/s/^# //g' /usr/local/MG5_aMC_v2_8_1/input/mg5_configuration.txt && \
-    sed -i 's|# pythia8_path.*|pythia8_path = /usr/local|g' /usr/local/MG5_aMC_v2_8_1/input/mg5_configuration.txt
+    sed -i 's|# pythia8_path.*|pythia8_path = /usr/local|g' /usr/local/MG5_aMC_v2_8_1/input/mg5_configuration.txt && \
+    sed -i '/mg5amc_py8_interface_path =/s/^# //g' /usr/local/MG5_aMC_v2_8_1/input/mg5_configuration.txt
 
 # Enable tab completion by uncommenting it from /etc/bash.bashrc
 # The relevant lines are those below the phrase "enable bash completion in interactive shells"
