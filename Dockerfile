@@ -165,7 +165,7 @@ RUN cp /root/.profile ${HOME}/.profile && \
 
 #ENV USER docker
 #USER docker
-ENV PYTHONPATH=/usr/local/lib:$PYTHONPATH
+ENV PYTHONPATH=/usr/local/lib:/usr/local/MG5_aMC_v2_8_1:$PYTHONPATH
 ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 ENV PATH ${HOME}/.local/bin:$PATH
 ENV PATH /usr/local/MG5_aMC_v2_8_1/bin:$PATH
