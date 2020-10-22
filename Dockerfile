@@ -20,7 +20,8 @@ RUN apt-get -qq -y update && \
       rsync \
       bash-completion \
       python3-dev \
-      wget && \
+      wget \
+      git && \
     apt-get -y autoclean && \
     apt-get -y autoremove && \
     rm -rf /var/lib/apt/lists/*
