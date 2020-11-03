@@ -120,17 +120,17 @@ RUN cd /usr/local && \
     tar -xf MG5aMC_PY8_interface_V1.0.tar.gz -C MG5aMC_PY8_interface && \
     cd MG5aMC_PY8_interface && \
     python compile.py /usr/local/ --pythia8_makefile && \
-    mkdir -p /usr/local/MG5_aMC_v2_8_2/HEPTools/MG5aMC_PY8_interface && \
-    cp *.h /usr/local/MG5_aMC_v2_8_2/HEPTools/MG5aMC_PY8_interface/ && \
-    cp *_VERSION_ON_INSTALL /usr/local/MG5_aMC_v2_8_2/HEPTools/MG5aMC_PY8_interface/ && \
-    cp MG5aMC_PY8_interface /usr/local/MG5_aMC_v2_8_2/HEPTools/MG5aMC_PY8_interface/ && \
+    mkdir -p /usr/local/MG5_aMC/HEPTools/MG5aMC_PY8_interface && \
+    cp *.h /usr/local/MG5_aMC/HEPTools/MG5aMC_PY8_interface/ && \
+    cp *_VERSION_ON_INSTALL /usr/local/MG5_aMC/HEPTools/MG5aMC_PY8_interface/ && \
+    cp MG5aMC_PY8_interface /usr/local/MG5_aMC/HEPTools/MG5aMC_PY8_interface/ && \
     rm -rf /code
 
 # Change the MadGraph5_aMC@NLO configuration settings
-RUN sed -i '/fastjet =/s/^# //g' /usr/local/MG5_aMC_v2_8_2/input/mg5_configuration.txt && \
-    sed -i '/lhapdf_py3 =/s/^# //g' /usr/local/MG5_aMC_v2_8_2/input/mg5_configuration.txt && \
-    sed -i 's|# pythia8_path.*|pythia8_path = /usr/local|g' /usr/local/MG5_aMC_v2_8_2/input/mg5_configuration.txt && \
-    sed -i '/mg5amc_py8_interface_path =/s/^# //g' /usr/local/MG5_aMC_v2_8_2/input/mg5_configuration.txt
+RUN sed -i '/fastjet =/s/^# //g' /usr/local/MG5_aMC/input/mg5_configuration.txt && \
+    sed -i '/lhapdf_py3 =/s/^# //g' /usr/local/MG5_aMC/input/mg5_configuration.txt && \
+    sed -i 's|# pythia8_path.*|pythia8_path = /usr/local|g' /usr/local/MG5_aMC/input/mg5_configuration.txt && \
+    sed -i '/mg5amc_py8_interface_path =/s/^# //g' /usr/local/MG5_aMC/input/mg5_configuration.txt
 
 # Enable tab completion by uncommenting it from /etc/bash.bashrc
 # The relevant lines are those below the phrase "enable bash completion in interactive shells"
@@ -147,7 +147,7 @@ RUN export SED_RANGE="$(($(sed -n '\|enable bash completion in interactive shell
 #    chown -R --from=root docker /usr/local
 
 ## Move files someplace
-#RUN cp -r /usr/local/MG5_aMC_v2_8_2 /home/docker/ && \
+#RUN cp -r /usr/local/MG5_aMC /home/docker/ && \
 #    chown -R --from=root docker /home/docker
 
 # Use C.UTF-8 locale to avoid issues with ASCII encoding
@@ -160,16 +160,16 @@ RUN cp /root/.profile ${HOME}/.profile && \
     cp /root/.bashrc ${HOME}/.bashrc && \
     echo "" >> ${HOME}/.bashrc && \
     echo 'export PATH=${HOME}/.local/bin:$PATH' >> ${HOME}/.bashrc && \
-    echo 'export PATH=/usr/local/MG5_aMC_v2_8_2/bin:$PATH' >> ${HOME}/.bashrc && \
+    echo 'export PATH=/usr/local/MG5_aMC/bin:$PATH' >> ${HOME}/.bashrc && \
     python -m pip install --upgrade --no-cache-dir pip setuptools wheel && \
     python -m pip install --no-cache-dir six numpy
 
 #ENV USER docker
 #USER docker
-ENV PYTHONPATH=/usr/local/lib:/usr/local/MG5_aMC_v2_8_2:$PYTHONPATH
+ENV PYTHONPATH=/usr/local/lib:/usr/local/MG5_aMC:$PYTHONPATH
 ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 ENV PATH ${HOME}/.local/bin:$PATH
-ENV PATH /usr/local/MG5_aMC_v2_8_2/bin:$PATH
+ENV PATH /usr/local/MG5_aMC/bin:$PATH
 
 ENTRYPOINT ["/bin/bash", "-l", "-c"]
 CMD ["/bin/bash"]
