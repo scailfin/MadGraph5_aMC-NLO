@@ -110,7 +110,8 @@ RUN mkdir /code && \
 ARG MG_VERSION=2.8.2
 RUN cd /usr/local && \
     wget --quiet https://launchpad.net/mg5amcnlo/2.0/2.8.x/+download/MG5_aMC_v${MG_VERSION}.tar.gz && \
-    tar xzf MG5_aMC_v${MG_VERSION}.tar.gz -C MG5_aMC && \
+    mkdir -p /usr/local/MG5_aMC && \
+    tar -xzvf MG5_aMC_v${MG_VERSION}.tar.gz --strip=1 --directory=MG5_aMC && \
     rm MG5_aMC_v${MG_VERSION}.tar.gz && \
     echo "Installing MG5aMC_PY8_interface" && \
     mkdir /code && \
