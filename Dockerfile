@@ -118,7 +118,7 @@ RUN cd /usr/local && \
     cd /code && \
     wget --quiet http://madgraph.phys.ucl.ac.be/Downloads/MG5aMC_PY8_interface/MG5aMC_PY8_interface_V1.0.tar.gz && \
     mkdir -p /code/MG5aMC_PY8_interface && \
-    tar -xf MG5aMC_PY8_interface_V1.0.tar.gz -C MG5aMC_PY8_interface && \
+    tar -xzvf MG5aMC_PY8_interface_V1.0.tar.gz --directory=MG5aMC_PY8_interface && \
     cd MG5aMC_PY8_interface && \
     python compile.py /usr/local/ --pythia8_makefile && \
     mkdir -p /usr/local/MG5_aMC/HEPTools/MG5aMC_PY8_interface && \
