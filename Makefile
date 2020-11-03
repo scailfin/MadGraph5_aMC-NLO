@@ -10,10 +10,10 @@ image:
 	--build-arg FASTJET_VERSION=3.3.4 \
 	--build-arg LHAPDF_VERSION=6.3.0 \
 	--build-arg PYTHIA_VERSION=8243 \
-	--build-arg MG_VERSION=2.8.1 \
+	--build-arg MG_VERSION=2.8.2 \
 	-t scailfin/madgraph5-amc-nlo:latest \
-	-t scailfin/madgraph5-amc-nlo:2.8.1 \
-	-t scailfin/madgraph5-amc-nlo:2.8.1-python3 \
+	-t scailfin/madgraph5-amc-nlo:2.8.2 \
+	-t scailfin/madgraph5-amc-nlo:2.8.2-python3 \
 	--compress
 
 test:
@@ -24,5 +24,5 @@ test:
 	--build-arg FASTJET_VERSION=3.3.4 \
 	--build-arg LHAPDF_VERSION=6.3.0 \
 	--build-arg PYTHIA_VERSION=8243 \
-	--build-arg MG_VERSION=2.8.1 \
+	--build-arg MG_VERSION=2.8.2 \
 	-t scailfin/madgraph5-amc-nlo:debug-local
