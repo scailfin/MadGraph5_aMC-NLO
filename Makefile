@@ -4,6 +4,7 @@ all: image
 
 image:
 	docker build . \
+	--pull \
 	-f Dockerfile \
 	--build-arg BUILDER_IMAGE=python:3.8-slim \
 	--build-arg HEPMC_VERSION=2.06.11 \
@@ -18,6 +19,7 @@ image:
 
 test:
 	docker build . \
+	--pull \
 	-f Dockerfile \
 	--build-arg BUILDER_IMAGE=python:3.8-slim \
 	--build-arg HEPMC_VERSION=2.06.11 \
