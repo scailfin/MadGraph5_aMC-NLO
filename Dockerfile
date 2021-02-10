@@ -107,9 +107,9 @@ RUN mkdir /code && \
     rm -rf /code
 
 # Install MadGraph5_aMC@NLO for Python 3 and PYTHIA 8 interface
-ARG MG_VERSION=2.8.2
+ARG MG_VERSION=2.9.1.2
 RUN cd /usr/local && \
-    wget --quiet https://launchpad.net/mg5amcnlo/2.0/2.8.x/+download/MG5_aMC_v${MG_VERSION}.tar.gz && \
+    wget --quiet https://launchpad.net/mg5amcnlo/2.0/2.9.x/+download/MG5_aMC_v${MG_VERSION}.tar.gz && \
     mkdir -p /usr/local/MG5_aMC && \
     tar -xzvf MG5_aMC_v${MG_VERSION}.tar.gz --strip=1 --directory=MG5_aMC && \
     rm MG5_aMC_v${MG_VERSION}.tar.gz && \
