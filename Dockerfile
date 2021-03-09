@@ -140,12 +140,12 @@ RUN export SED_RANGE="$(($(sed -n '\|enable bash completion in interactive shell
     unset SED_RANGE
 
 # Create user "docker"
-#RUN useradd -m docker && \
-#    cp /root/.bashrc /home/docker/ && \
-#    mkdir /home/docker/data && \
-#    chown -R --from=root docker /home/docker && \
-#    chown -R --from=root docker /usr && \
-#    chown -R --from=root docker /usr/local
+RUN useradd -m docker && \
+   cp /root/.bashrc /home/docker/ && \
+   mkdir /home/docker/data && \
+   chown -R --from=root docker /home/docker && \
+   chown -R --from=root docker /usr && \
+   chown -R --from=root docker /usr/local
 
 ## Move files someplace
 #RUN cp -r /usr/local/MG5_aMC /home/docker/ && \
@@ -165,8 +165,8 @@ RUN cp /root/.profile ${HOME}/.profile && \
     python -m pip install --upgrade --no-cache-dir pip setuptools wheel && \
     python -m pip install --no-cache-dir six numpy
 
-#ENV USER docker
-#USER docker
+ENV USER docker
+USER docker
 ENV PYTHONPATH=/usr/local/lib:/usr/local/MG5_aMC:$PYTHONPATH
 ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 ENV PATH ${HOME}/.local/bin:$PATH
