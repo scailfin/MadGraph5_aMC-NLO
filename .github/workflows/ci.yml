@@ -29,7 +29,8 @@ jobs:
     - name: Run test program
       run: >-
         docker run --rm
+        --user root
         -v $PWD:$PWD
         -w $PWD
         scailfin/madgraph5-amc-nlo:test
-        "echo $PWD; lhapdf install NNPDF23_lo_as_0130_qed; mg5_aMC tests/test_top_mass_scan.mg5"
+        "lhapdf install NNPDF23_lo_as_0130_qed; mg5_aMC tests/test_top_mass_scan.mg5"
