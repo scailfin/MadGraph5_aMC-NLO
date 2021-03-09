@@ -1,6 +1,10 @@
 #!/bin/bash
 
-docker run
+set -e
+set -u
+set -o pipefail
+
+docker run \
 	--pull \
 	--rm \
 	-v "${PWD}":"${PWD}" \
