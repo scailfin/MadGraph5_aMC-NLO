@@ -145,8 +145,8 @@ RUN useradd -m docker && \
    mkdir /home/docker/data && \
    chown -R --from=root docker /home/docker && \
    chown -R --from=root docker /usr && \
-   chown -hR --from=root docker /usr/local && \
-   chown -hR --from=503 docker /usr/local
+   chown -R --from=root docker /usr/local && \
+   chown -R --from=503 docker /usr/local
 
 # Use C.UTF-8 locale to avoid issues with ASCII encoding
 ENV LC_ALL=C.UTF-8
