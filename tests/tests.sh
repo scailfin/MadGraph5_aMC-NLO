@@ -14,4 +14,3 @@ fi
 
 lhapdf install NNPDF23_lo_as_0130_qed
 mg5_aMC test_top_mass_scan.mg5
-ls -lhtra
