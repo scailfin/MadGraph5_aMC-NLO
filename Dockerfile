@@ -144,9 +144,9 @@ RUN useradd -m docker && \
    cp /root/.bashrc /home/docker/ && \
    mkdir /home/docker/data && \
    chown -R --from=root docker /home/docker && \
-   chown -R --from=root docker /usr && \
-   chown -R --from=root docker /usr/local && \
-   chown -R --from=503 docker /usr/local
+   chown -R --from=root docker /usr/local/MG5_aMC && \
+   chown -R --from=root docker /usr/local/share && \
+   chown -R --from=503 docker /usr/local/MG5_aMC
 
 # Use C.UTF-8 locale to avoid issues with ASCII encoding
 ENV LC_ALL=C.UTF-8

@@ -5,6 +5,7 @@ on:
   pull_request:
   schedule:
   - cron:  '1 0 * * 0'
+  workflow_dispatch:
 
 jobs:
   test:
@@ -29,6 +30,5 @@ jobs:
       run: >-
         docker run --rm
         -v $PWD:$PWD
-        -w $PWD
         scailfin/madgraph5-amc-nlo:test
-        "lhapdf install NNPDF23_lo_as_0130_qed; mg5_aMC tests/test_top_mass_scan.mg5"
+        "lhapdf install NNPDF23_lo_as_0130_qed; mg5_aMC ${PWD}/tests/test_top_mass_scan.mg5; ls -lhtra"
