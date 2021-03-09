@@ -27,8 +27,9 @@ jobs:
     - name: List Built Images
       run: docker images
     - name: Run test program
+      # Need to run not below PWD to have non-root write with GHA
       run: >-
         docker run --rm
         -v $PWD:$PWD
         scailfin/madgraph5-amc-nlo:test
-        "cd ${PWD}/tests; bash tests.sh"
+        "cp -r ${PWD}/tests .; cd tests; bash tests.sh"
