@@ -145,7 +145,8 @@ RUN useradd -m docker && \
    mkdir /home/docker/data && \
    chown -R --from=root docker /home/docker && \
    chown -R --from=root docker /usr && \
-   chown -R --from=root docker /usr/local
+   chown -R --from=root docker /usr/local && \
+   chown -R --from=root docker /usr/local/MG5_aMC
 
 ## Move files someplace
 #RUN cp -r /usr/local/MG5_aMC /home/docker/ && \
