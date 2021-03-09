@@ -27,8 +27,9 @@ jobs:
     - name: List Built Images
       run: docker images
     - name: Run test program
+      # Need to run not below PWD to have non-root write with GHA
       run: >-
         docker run --rm
         -v $PWD:$PWD
         scailfin/madgraph5-amc-nlo:test
-        "lhapdf install NNPDF23_lo_as_0130_qed; mg5_aMC ${PWD}/tests/test_top_mass_scan.mg5; ls -lhtra"
+        "cp -r ${PWD}/tests .; cd tests; bash tests.sh"
