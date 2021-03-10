@@ -140,7 +140,7 @@ RUN export SED_RANGE="$(($(sed -n '\|enable bash completion in interactive shell
     unset SED_RANGE
 
 # Create user "docker"
-RUN useradd -m docker && \
+RUN useradd --shell /bin/bash -m docker && \
    cp /root/.bashrc /home/docker/ && \
    mkdir /home/docker/data && \
    chown -R --from=root docker /home/docker && \
