@@ -30,7 +30,7 @@ docker pull scailfin/madgraph5-amc-nlo:mg5_amc2.9.2
 
 MadGraph5_aMC@NLO is in `PATH` when the container starts
 
-```shell
+```
 docker run --rm scailfin/madgraph5-amc-nlo:mg5_amc2.9.2 "mg5_aMC --help"
 Usage: mg5_aMC [options] [FILE]
 
