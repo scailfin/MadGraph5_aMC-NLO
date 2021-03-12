@@ -26,12 +26,48 @@ The Docker image contains:
 docker pull scailfin/madgraph5-amc-nlo:mg5_amc2.9.2-python3
 ```
 
+## Use
+
+MadGraph5_aMC@NLO is in `PATH` when the container starts
+
+```shell
+docker run --rm scailfin/madgraph5-amc-nlo:mg5_amc2.9.2-python3 "mg5_aMC --help"
+Usage: mg5_aMC [options] [FILE]
+
+Options:
+  -h, --help            show this help message and exit
+  -l LOGGING, --logging=LOGGING
+                        logging level (DEBUG|INFO|WARNING|ERROR|CRITICAL)
+                        [INFO]
+  -f FILE, --file=FILE  Use script file FILE
+  -d MGME_DIR, --mgme_dir=MGME_DIR
+                        Use MG_ME directory MGME_DIR
+  --web                 force to be in secure mode
+  --debug               force to launch debug mode
+  -m PLUGIN, --mode=PLUGIN
+                        Define some additional command provide by a PLUGIN
+  -s, --nocaffeinate    For mac user, forbids to use caffeinate when running
+                        with a script
+```
+
+so you should be able to make any directory inside the container a working directory and run `mg5_aMC` commands.
+
+When run as a container the
+
+If you run the image as an interactive container
+
+```shell
+docker run --rm -ti scailfin/madgraph5-amc-nlo:mg5_amc2.9.2-python3
+```
+
+you'll be dropped into the container at `/home/docker/data`
+
 ## Tests
 
 As an example test you can run the [top mass scan example](https://answers.launchpad.net/mg5amcnlo/+faq/2186) in the `tests` directory inside the Docker container by running the following from the top level directory of this repository
 
 ```shell
-docker run --pull --rm -v $PWD:$PWD scailfin/madgraph5-amc-nlo:mg5_amc2.9.2-python3 "cd ${PWD}/tests; bash tests.sh"
+docker run --rm -v $PWD:$PWD scailfin/madgraph5-amc-nlo:mg5_amc2.9.2-python3 "cd ${PWD}/tests; bash tests.sh"
 ```
 
 or run the test runner
