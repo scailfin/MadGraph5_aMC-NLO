@@ -50,15 +50,15 @@ Options:
                         with a script
 ```
 
-so you should be able to make any directory inside the container a working directory and run `mg5_aMC` commands.
+so you should be able to make any directory inside the container a working directory and run `mg5_aMC` commands from there.
 
-If you run the image as an interactive container with your local path bind mounted
+If you run the image as an interactive container with your local path bind mounted to the working directory
 
 ```shell
-docker run --rm -ti scailfin/madgraph5-amc-nlo:mg5_amc2.9.2
+docker run --rm -ti -v $PWD:$PWD -w $PWD scailfin/madgraph5-amc-nlo:mg5_amc2.9.2
 ```
 
-you'll be dropped into the container at `/home/docker/data`
+output from your work in that directory in the interactive session will be preserved when the container exists.
 
 ## Tests
 
