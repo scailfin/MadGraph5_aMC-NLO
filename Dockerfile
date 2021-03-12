@@ -22,7 +22,7 @@ RUN apt-get -qq -y update && \
       python3-dev \
       wget \
       git && \
-    apt-get -y autoclean && \
+    apt-get -y clean && \
     apt-get -y autoremove && \
     rm -rf /var/lib/apt/lists/*
 
