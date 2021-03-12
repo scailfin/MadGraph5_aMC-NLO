@@ -23,7 +23,7 @@ The Docker image contains:
 - Use `docker pull` to pull down the image corresponding to the tag. For example:
 
 ```
-docker pull scailfin/madgraph5-amc-nlo:mg5_amc2.9.2-python3
+docker pull scailfin/madgraph5-amc-nlo:mg5_amc2.9.2
 ```
 
 ## Use
@@ -31,7 +31,7 @@ docker pull scailfin/madgraph5-amc-nlo:mg5_amc2.9.2-python3
 MadGraph5_aMC@NLO is in `PATH` when the container starts
 
 ```shell
-docker run --rm scailfin/madgraph5-amc-nlo:mg5_amc2.9.2-python3 "mg5_aMC --help"
+docker run --rm scailfin/madgraph5-amc-nlo:mg5_amc2.9.2 "mg5_aMC --help"
 Usage: mg5_aMC [options] [FILE]
 
 Options:
@@ -52,12 +52,10 @@ Options:
 
 so you should be able to make any directory inside the container a working directory and run `mg5_aMC` commands.
 
-When run as a container the
-
-If you run the image as an interactive container
+If you run the image as an interactive container with your local path bind mounted
 
 ```shell
-docker run --rm -ti scailfin/madgraph5-amc-nlo:mg5_amc2.9.2-python3
+docker run --rm -ti scailfin/madgraph5-amc-nlo:mg5_amc2.9.2
 ```
 
 you'll be dropped into the container at `/home/docker/data`
@@ -67,7 +65,7 @@ you'll be dropped into the container at `/home/docker/data`
 As an example test you can run the [top mass scan example](https://answers.launchpad.net/mg5amcnlo/+faq/2186) in the `tests` directory inside the Docker container by running the following from the top level directory of this repository
 
 ```shell
-docker run --rm -v $PWD:$PWD scailfin/madgraph5-amc-nlo:mg5_amc2.9.2-python3 "cd ${PWD}/tests; bash tests.sh"
+docker run --rm -v $PWD:$PWD scailfin/madgraph5-amc-nlo:mg5_amc2.9.2 "cd ${PWD}/tests; bash tests.sh"
 ```
 
 or run the test runner
