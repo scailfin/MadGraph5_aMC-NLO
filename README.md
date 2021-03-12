@@ -60,6 +60,14 @@ docker run --rm -ti -v $PWD:$PWD -w $PWD scailfin/madgraph5-amc-nlo:mg5_amc2.9.2
 
 output from your work in that directory in the interactive session will be preserved when the container exists.
 
+The container can be used a runtime application by passing in a MadGraph program as a `.mg5` file to the `mg5_aMC` CLI API
+
+```shell
+docker run --rm -v $PWD:$PWD -w $PWD scailfin/madgraph5-amc-nlo:mg5_amc2.9.2 "mg5_aMC file-name.mg5"
+```
+
+For further examples see the tests.
+
 ## Tests
 
 As an example test you can run the [top mass scan example](https://answers.launchpad.net/mg5amcnlo/+faq/2186) in the `tests` directory inside the Docker container by running the following from the top level directory of this repository
