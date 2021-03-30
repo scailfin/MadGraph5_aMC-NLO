@@ -10,7 +10,7 @@ Docker image for Python 3 compliant [MadGraph5_aMC@NLO](https://launchpad.net/mg
 
 The Docker image contains:
 
-* [MadGraph5_aMC@NLO](https://launchpad.net/mg5amcnlo) `v2.9.2`
+* [MadGraph5_aMC@NLO](https://launchpad.net/mg5amcnlo) `v3.1.0`
 * Python 3.8
 * [HepMC2](http://hepmc.web.cern.ch/hepmc/) `v2.06.11`
 * [LHAPDF](https://lhapdf.hepforge.org/) `v6.3.0`
@@ -23,7 +23,7 @@ The Docker image contains:
 - Use `docker pull` to pull down the image corresponding to the tag. For example:
 
 ```
-docker pull scailfin/madgraph5-amc-nlo:mg5_amc2.9.2
+docker pull scailfin/madgraph5-amc-nlo:mg5_amc3.1.0
 ```
 
 ## Use
@@ -31,7 +31,7 @@ docker pull scailfin/madgraph5-amc-nlo:mg5_amc2.9.2
 MadGraph5_aMC@NLO is in `PATH` when the container starts
 
 ```
-docker run --rm scailfin/madgraph5-amc-nlo:mg5_amc2.9.2 "mg5_aMC --help"
+docker run --rm scailfin/madgraph5-amc-nlo:mg5_amc3.1.0 "mg5_aMC --help"
 Usage: mg5_aMC [options] [FILE]
 
 Options:
@@ -55,7 +55,7 @@ so you should be able to make any directory inside the container a working direc
 If you run the image as an interactive container with your local path bind mounted to the working directory
 
 ```shell
-docker run --rm -ti -v $PWD:$PWD -w $PWD scailfin/madgraph5-amc-nlo:mg5_amc2.9.2
+docker run --rm -ti -v $PWD:$PWD -w $PWD scailfin/madgraph5-amc-nlo:mg5_amc3.1.0
 ```
 
 output from your work in that directory in the interactive session will be preserved when the container exists.
@@ -63,7 +63,7 @@ output from your work in that directory in the interactive session will be prese
 The container can be used a runtime application by passing in a MadGraph program as a `.mg5` file to the `mg5_aMC` CLI API
 
 ```shell
-docker run --rm -v $PWD:$PWD -w $PWD scailfin/madgraph5-amc-nlo:mg5_amc2.9.2 "mg5_aMC file-name.mg5"
+docker run --rm -v $PWD:$PWD -w $PWD scailfin/madgraph5-amc-nlo:mg5_amc3.1.0 "mg5_aMC file-name.mg5"
 ```
 
 For further examples see the tests.
@@ -73,7 +73,7 @@ For further examples see the tests.
 As an example test you can run the [top mass scan example](https://answers.launchpad.net/mg5amcnlo/+faq/2186) in the `tests` directory inside the Docker container by running the following from the top level directory of this repository
 
 ```shell
-docker run --rm -v $PWD:$PWD scailfin/madgraph5-amc-nlo:mg5_amc2.9.2 "cd ${PWD}/tests; bash tests.sh"
+docker run --rm -v $PWD:$PWD scailfin/madgraph5-amc-nlo:mg5_amc3.1.0 "cd ${PWD}/tests; bash tests.sh"
 ```
 
 or run the test runner
