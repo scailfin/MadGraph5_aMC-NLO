@@ -2,7 +2,7 @@
 
 Docker image for Python 3 compliant [MadGraph5_aMC@NLO](https://launchpad.net/mg5amcnlo).
 
-[![GitHub Actions Status: CI](https://github.com/scailfin/MadGraph5_aMC-NLO/workflows/CI/badge.svg?branch=main)](https://github.com/scailfin/MadGraph5_aMC-NLO/actions?query=workflow%3ACI+branch%3Amain)
+[![Docker Images](https://github.com/scailfin/MadGraph5_aMC-NLO/actions/workflows/docker.yml/badge.svg?branch=main)](https://github.com/scailfin/MadGraph5_aMC-NLO/actions/workflows/docker.yml?query=branch%3Amain)
 [![Docker Pulls](https://img.shields.io/docker/pulls/scailfin/madgraph5-amc-nlo)](https://hub.docker.com/r/scailfin/madgraph5-amc-nlo)
 [![Docker Image Size (tag)](https://img.shields.io/docker/image-size/scailfin/madgraph5-amc-nlo/latest)](https://hub.docker.com/r/scailfin/madgraph5-amc-nlo/tags?name=latest)
 
