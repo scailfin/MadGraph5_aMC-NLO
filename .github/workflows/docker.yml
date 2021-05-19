@@ -48,6 +48,7 @@ jobs:
           echo ::set-output name=tags::${TAGS}
           echo ::set-output name=created::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
           echo ::set-output name=repo_name_lowercase::"${REPO_NAME_LOWERCASE}"
+          echo ::set-output name=madgraph_version::"${MADGRAPH_VERSION}"
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -106,7 +107,11 @@ jobs:
         with:
           context: .
           file: Dockerfile
-          tags: scailfin/madgraph5-amc-nlo:latest,scailfin/madgraph5-amc-nlo:${MADGRAPH_VERSION},ghcr.io/${{steps.prep.outputs.repo_name_lowercase}}:latest,ghcr.io/${{steps.prep.outputs.repo_name_lowercase}}:${MADGRAPH_VERSION}
+          tags: |
+            scailfin/madgraph5-amc-nlo:latest
+            scailfin/madgraph5-amc-nlo:${{steps.prep.outputs.madgraph_version}}
+            ghcr.io/${{steps.prep.outputs.repo_name_lowercase}}:latest
+            ghcr.io/${{steps.prep.outputs.repo_name_lowercase}}:${{steps.prep.outputs.madgraph_version}}
           labels: |
             org.opencontainers.image.source=${{ github.event.repository.html_url }}
             org.opencontainers.image.created=${{ steps.prep.outputs.created }}
