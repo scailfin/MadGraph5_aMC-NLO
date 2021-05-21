@@ -71,12 +71,26 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Test build
+      - name: Build Debian base
         id: docker_build_test
         uses: docker/build-push-action@v2
         with:
           context: .
           file: docker/debian/Dockerfile
+          tags: "madgraph5-amc-nlo-debian-base:latest"
+          labels: |
+            org.opencontainers.image.source=${{ github.event.repository.html_url }}
+            org.opencontainers.image.created=${{ steps.prep.outputs.created }}
+            org.opencontainers.image.revision=${{ github.sha }}
+          load: true
+          push: false
+
+      - name: Test build
+        id: docker_build_test
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: docker/Dockerfile
           tags: ${{ steps.prep.outputs.tags }}
           labels: |
             org.opencontainers.image.source=${{ github.event.repository.html_url }}
