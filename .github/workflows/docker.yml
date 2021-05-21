@@ -96,6 +96,7 @@ jobs:
           context: .
           file: docker/Dockerfile
           build-args: BUILDER_IMAGE=madgraph5-amc-nlo-debian-base:latest
+          cache-from: local
           tags: ${{ steps.prep.outputs.tags }}
           labels: |
             org.opencontainers.image.source=${{ github.event.repository.html_url }}
