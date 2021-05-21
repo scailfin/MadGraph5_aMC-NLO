@@ -86,6 +86,9 @@ jobs:
           load: true
           push: false
 
+      - name: List built images
+        run: docker images
+
       - name: Test build
         id: docker_build_test
         uses: docker/build-push-action@v2
