@@ -72,7 +72,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build Debian base
-        id: docker_build_test
+        id: docker_build_debian_base
         uses: docker/build-push-action@v2
         with:
           context: .
