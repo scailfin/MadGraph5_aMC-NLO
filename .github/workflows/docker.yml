@@ -19,6 +19,11 @@ jobs:
   docker:
     name: Build and publish Docker images
     runs-on: ubuntu-latest
+    services:
+      registry:
+        image: registry:2
+        ports:
+          - 5000:5000
 
     steps:
       - name: Checkout
@@ -78,11 +83,7 @@ jobs:
           context: .
           file: docker/debian/Dockerfile
           build-args: BUILDER_IMAGE=python:3.8-slim
-          tags: madgraph5-amc-nlo-debian-base:latest
-          labels: |
-            org.opencontainers.image.source=${{ github.event.repository.html_url }}
-            org.opencontainers.image.created=${{ steps.prep.outputs.created }}
-            org.opencontainers.image.revision=${{ github.sha }}
+          tags: localhost:5000/madgraph5-amc-nlo-debian-base:latest
           load: true
           push: false
 
@@ -95,8 +96,7 @@ jobs:
         with:
           context: .
           file: docker/Dockerfile
-          build-args: BUILDER_IMAGE=madgraph5-amc-nlo-debian-base:latest
-          cache-from: local
+          build-args: BUILDER_IMAGE=localhost:5000/madgraph5-amc-nlo-debian-base:latest
           tags: ${{ steps.prep.outputs.tags }}
           labels: |
             org.opencontainers.image.source=${{ github.event.repository.html_url }}
