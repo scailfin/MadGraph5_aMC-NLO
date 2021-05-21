@@ -78,7 +78,7 @@ jobs:
           context: .
           file: docker/debian/Dockerfile
           build-args: BUILDER_IMAGE=python:3.8-slim
-          tags: "madgraph5-amc-nlo-debian-base:latest"
+          tags: madgraph5-amc-nlo-debian-base:latest
           labels: |
             org.opencontainers.image.source=${{ github.event.repository.html_url }}
             org.opencontainers.image.created=${{ steps.prep.outputs.created }}
@@ -92,7 +92,7 @@ jobs:
         with:
           context: .
           file: docker/Dockerfile
-          build-args: BUILDER_IMAGE="madgraph5-amc-nlo-debian-base:latest"
+          build-args: BUILDER_IMAGE=madgraph5-amc-nlo-debian-base:latest
           tags: ${{ steps.prep.outputs.tags }}
           labels: |
             org.opencontainers.image.source=${{ github.event.repository.html_url }}
