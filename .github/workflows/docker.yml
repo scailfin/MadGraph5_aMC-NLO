@@ -84,8 +84,8 @@ jobs:
           file: docker/debian/Dockerfile
           build-args: BUILDER_IMAGE=python:3.8-slim
           tags: localhost:5000/madgraph5-amc-nlo-debian-base:latest
-          load: true
-          push: false
+          # load: true
+          push: true
 
       - name: List built images
         run: docker images
