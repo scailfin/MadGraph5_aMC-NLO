@@ -7,22 +7,20 @@ WORKDIR /usr/local
 SHELL [ "/bin/bash", "-c" ]
 
 RUN yum update -y && \
-    yum install
+    yum install -y \
       gcc \
       gcc-c++ \
       gcc-gfortran \
       make \
       cmake \
       vim \
-    apt-get -qq -y install --no-install-recommends \
-      zlibc \
-      zlib1g-dev \
-      libbz2-dev \
+      zlib \
+      zlib-devel \
+      bzip2 \
+      bzip2-devel \
       rsync \
       bash-completion \
-      python3-dev \
       wget \
       git && \
-    apt-get -y clean && \
-    apt-get -y autoremove && \
-    rm -rf /var/lib/apt/lists/*
+    yum clean all && \
+    yum autoremove -y
