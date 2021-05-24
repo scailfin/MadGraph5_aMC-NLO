@@ -157,7 +157,7 @@ jobs:
           push: true
 
   centos:
-    name: Build and publish CentOS based images
+    name: Build and publish CentOS images
     runs-on: ubuntu-latest
     services:
       registry:
