@@ -30,7 +30,7 @@ test:
 base-centos:
 	docker build . \
 	-f docker/centos/Dockerfile \
-	--build-arg BUILDER_IMAGE=neubauergroup/centos-python3:3.8.8 \
+	--build-arg BUILDER_IMAGE=neubauergroup/neubauergroup/centos-build-base:latest \
 	-t tmp/madgraph5-amc-nlo-centos-base:debug-local
 
 test-centos: base-centos

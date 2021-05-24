@@ -1,4 +1,4 @@
-ARG BUILDER_IMAGE=neubauergroup/centos-python3:3.8.8
+ARG BUILDER_IMAGE=neubauergroup/centos-build-base:latest
 FROM ${BUILDER_IMAGE} as builder
 
 USER root
@@ -26,15 +26,4 @@ RUN yum update -y && \
       which \
       git && \
     yum clean all && \
-    yum autoremove -y && \
-    mkdir -p /build && \
-    cd /build && \
-    curl -sLO "https://github.com/Kitware/CMake/releases/download/v${CMAKE_VERSION}/cmake-${CMAKE_VERSION}.tar.gz" && \
-    tar -xzf "cmake-${CMAKE_VERSION}.tar.gz" && \
-    cd "cmake-${CMAKE_VERSION}" && \
-    ./bootstrap && \
-    make -j"$(($(nproc) - 1))" && \
-    make install && \
-    cd / && \
-    rm -rf /build && \
-    cmake --version
+    yum autoremove -y
