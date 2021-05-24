@@ -23,6 +23,7 @@ RUN yum update -y && \
       rsync \
       bash-completion \
       wget \
+      which \
       git && \
     yum clean all && \
     yum autoremove -y && \
