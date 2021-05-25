@@ -83,8 +83,8 @@ RUN mkdir /code && \
       --with-python-bin=/usr/local/bin/ \
       --with-python-lib=/usr/local/lib/python${PYTHON_MINOR_VERSION} \
       --with-python-include=/usr/local/include/python${PYTHON_MINOR_VERSION} \
-      --cxx-common="-std=c++11" \
-      --cxx-shared="-std=c++11" && \
+      --cxx-common="-O2 -m64 -pedantic -W -Wall -Wshadow -fPIC -std=c++11" \
+      --cxx-shared="-shared -std=c++11" && \
     make -j$(($(nproc) - 1)) && \
     make install && \
     rm -rf /code
