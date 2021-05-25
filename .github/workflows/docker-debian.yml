@@ -19,11 +19,6 @@ jobs:
   docker:
     name: Build and publish Debian images
     runs-on: ubuntu-latest
-    services:
-      registry:
-        image: registry:2
-        ports:
-          - 5000:5000
 
     steps:
       - name: Checkout
@@ -60,8 +55,6 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
-        with:
-          driver-opts: network=host
 
       - name: Login to DockerHub
         if: github.event_name != 'pull_request'
@@ -78,26 +71,12 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build Debian base
-        id: docker_build_debian_base
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          file: docker/debian/Dockerfile
-          build-args: BUILDER_IMAGE=python:3.8-slim
-          tags: localhost:5000/madgraph5-amc-nlo-debian-base:latest
-          push: true
-
-      - name: List built images
-        run: docker images
-
       - name: Test build
         id: docker_build_test
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: docker/Dockerfile
-          build-args: BUILDER_IMAGE=localhost:5000/madgraph5-amc-nlo-debian-base:latest
+          file: docker/debian/Dockerfile
           tags: ${{ steps.prep.outputs.tags }}
           labels: |
             org.opencontainers.image.source=${{ github.event.repository.html_url }}
@@ -127,8 +106,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: docker/Dockerfile
-          build-args: BUILDER_IMAGE=localhost:5000/madgraph5-amc-nlo-debian-base:latest
+          file: docker/debian/Dockerfile
           tags: |
             scailfin/madgraph5-amc-nlo:latest
             scailfin/madgraph5-amc-nlo:${{ steps.prep.outputs.madgraph_version }}
@@ -146,8 +124,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: docker/Dockerfile
-          build-args: BUILDER_IMAGE=localhost:5000/madgraph5-amc-nlo-debian-base:latest
+          file: docker/debian/Dockerfile
           tags: ${{ steps.prep.outputs.tags }}
           labels: |
             org.opencontainers.image.source=${{ github.event.repository.html_url }}
