@@ -128,7 +128,7 @@ jobs:
         with:
           context: .
           file: docker/Dockerfile
-          build-args: BUILDER_IMAGE=localhost:5000/madgraph5-amc-nlo-debian-base:latest
+          build-args: BUILDER_IMAGE=localhost:5000/madgraph5-amc-nlo-centos-base:latest
           tags: |
             scailfin/madgraph5-amc-nlo-centos:latest
             scailfin/madgraph5-amc-nlo-centos:${{ steps.prep.outputs.madgraph_version }}
@@ -147,7 +147,7 @@ jobs:
         with:
           context: .
           file: docker/Dockerfile
-          build-args: BUILDER_IMAGE=localhost:5000/madgraph5-amc-nlo-debian-base:latest
+          build-args: BUILDER_IMAGE=localhost:5000/madgraph5-amc-nlo-centos-base:latest
           tags: ${{ steps.prep.outputs.tags }}
           labels: |
             org.opencontainers.image.source=${{ github.event.repository.html_url }}
