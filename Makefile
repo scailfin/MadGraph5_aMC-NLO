@@ -30,7 +30,7 @@ test:
 base-centos:
 	docker build . \
 	-f docker/centos/Dockerfile \
-	--build-arg BUILDER_IMAGE=neubauergroup/neubauergroup/centos-build-base:latest \
+	--build-arg BUILDER_IMAGE=neubauergroup/centos-build-base:latest \
 	-t tmp/madgraph5-amc-nlo-centos-base:debug-local
 
 test-centos: base-centos

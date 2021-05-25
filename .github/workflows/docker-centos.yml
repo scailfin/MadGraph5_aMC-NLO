@@ -84,7 +84,7 @@ jobs:
         with:
           context: .
           file: docker/centos/Dockerfile
-          build-args: BUILDER_IMAGE=neubauergroup/neubauergroup/centos-build-base:latest
+          build-args: BUILDER_IMAGE=neubauergroup/centos-build-base:latest
           tags: localhost:5000/madgraph5-amc-nlo-centos-base:latest
           push: true
 
