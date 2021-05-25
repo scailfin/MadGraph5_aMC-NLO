@@ -19,11 +19,6 @@ jobs:
   docker:
     name: Build and publish CentOS images
     runs-on: ubuntu-latest
-    services:
-      registry:
-        image: registry:2
-        ports:
-          - 5000:5000
 
     steps:
       - name: Checkout
@@ -60,8 +55,6 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
-        with:
-          driver-opts: network=host
 
       - name: Login to DockerHub
         # if: github.event_name != 'pull_request'
@@ -78,26 +71,12 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build CentOS base
-        id: docker_build_centos_base
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          file: docker/centos/Dockerfile
-          build-args: BUILDER_IMAGE=neubauergroup/centos-build-base:latest
-          tags: localhost:5000/madgraph5-amc-nlo-centos-base:latest
-          push: true
-
-      - name: List built images
-        run: docker images
-
       - name: Test build
         id: docker_build_test
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: docker/Dockerfile
-          build-args: BUILDER_IMAGE=localhost:5000/madgraph5-amc-nlo-centos-base:latest
+          file: docker/centos/Dockerfile
           tags: ${{ steps.prep.outputs.tags }}
           labels: |
             org.opencontainers.image.source=${{ github.event.repository.html_url }}
@@ -127,8 +106,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: docker/Dockerfile
-          build-args: BUILDER_IMAGE=localhost:5000/madgraph5-amc-nlo-centos-base:latest
+          file: docker/centos/Dockerfile
           tags: |
             scailfin/madgraph5-amc-nlo-centos:latest
             scailfin/madgraph5-amc-nlo-centos:${{ steps.prep.outputs.madgraph_version }}
@@ -146,8 +124,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          file: docker/Dockerfile
-          build-args: BUILDER_IMAGE=localhost:5000/madgraph5-amc-nlo-centos-base:latest
+          file: docker/centos/Dockerfile
           tags: ${{ steps.prep.outputs.tags }}
           labels: |
             org.opencontainers.image.source=${{ github.event.repository.html_url }}
