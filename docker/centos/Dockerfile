@@ -20,6 +20,7 @@ RUN yum update -y && \
       bzip2-devel \
       rsync \
       bash-completion \
+      bash-completion-extras \
       wget \
       which \
       git && \
@@ -84,6 +85,7 @@ RUN mkdir /code && \
 # Install PYTHIA
 ARG PYTHIA_VERSION=8243
 # PYTHON_VERSION already exists in the base image
+# CentOS 7 gcc v4.8.5 is old enough need to specify -std=c++11
 RUN mkdir /code && \
     cd /code && \
     wget --quiet http://home.thep.lu.se/~torbjorn/pythia8/pythia${PYTHIA_VERSION}.tgz && \
