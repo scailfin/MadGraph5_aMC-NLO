@@ -6,9 +6,7 @@ WORKDIR /usr/local
 
 SHELL [ "/bin/bash", "-c" ]
 
-# CentOS 7's version of CMake is too old (v2.8.12) so build CMake from
-# source instead
-ARG CMAKE_VERSION=3.20.2
+# CMake provided by base image
 RUN yum update -y && \
     yum install -y \
       gcc \
