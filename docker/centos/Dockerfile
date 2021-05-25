@@ -166,8 +166,8 @@ ENV USER docker
 USER docker
 ENV PYTHONPATH=/usr/local/lib:/usr/local/MG5_aMC:$PYTHONPATH
 ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
-ENV PATH ${HOME}/.local/bin:$PATH
-ENV PATH /usr/local/MG5_aMC/bin:$PATH
+ENV PATH=${HOME}/.local/bin:$PATH
+ENV PATH=/usr/local/MG5_aMC/bin:$PATH
 
 ENTRYPOINT ["/bin/bash", "-l", "-c"]
 CMD ["/bin/bash"]
