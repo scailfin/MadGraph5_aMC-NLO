@@ -131,7 +131,7 @@ ENV LANG=C.UTF-8
 
 ENV HOME /home/docker
 WORKDIR ${HOME}/data
-RUN cp /root/.profile ${HOME}/.profile && \
+RUN if [ -f /root/.profile ];then cp /root/.profile ${HOME}/.profile;fi && \
     cp /root/.bashrc ${HOME}/.bashrc && \
     echo "" >> ${HOME}/.bashrc && \
     echo 'export PATH=${HOME}/.local/bin:$PATH' >> ${HOME}/.bashrc && \
