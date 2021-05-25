@@ -75,6 +75,7 @@ RUN mkdir /code && \
       --prefix=/usr/local \
       --arch=Linux \
       --cxx=g++ \
+      --enable-64bit \
       --with-gzip \
       --with-hepmc2 \
       --with-lhapdf6 \
