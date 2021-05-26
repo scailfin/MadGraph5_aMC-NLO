@@ -95,6 +95,7 @@ RUN mkdir /code && \
       --prefix=/usr/local \
       --arch=Linux \
       --cxx=g++ \
+      --enable-64bit \
       --with-gzip \
       --with-hepmc2 \
       --with-lhapdf6 \
@@ -159,15 +160,15 @@ RUN cp /root/.profile ${HOME}/.profile && \
     echo "" >> ${HOME}/.bashrc && \
     echo 'export PATH=${HOME}/.local/bin:$PATH' >> ${HOME}/.bashrc && \
     echo 'export PATH=/usr/local/MG5_aMC/bin:$PATH' >> ${HOME}/.bashrc && \
-    python -m pip install --upgrade --no-cache-dir pip setuptools wheel && \
-    python -m pip install --no-cache-dir six numpy
+    python -m pip --no-cache-dir install --upgrade pip setuptools wheel && \
+    python -m pip --no-cache-dir install six numpy
 
 ENV USER docker
 USER docker
 ENV PYTHONPATH=/usr/local/lib:/usr/local/MG5_aMC:$PYTHONPATH
 ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
-ENV PATH ${HOME}/.local/bin:$PATH
-ENV PATH /usr/local/MG5_aMC/bin:$PATH
+ENV PATH=${HOME}/.local/bin:$PATH
+ENV PATH=/usr/local/MG5_aMC/bin:$PATH
 
 ENTRYPOINT ["/bin/bash", "-l", "-c"]
 CMD ["/bin/bash"]
