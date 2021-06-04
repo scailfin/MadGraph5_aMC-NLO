@@ -88,7 +88,7 @@ ARG PYTHIA_VERSION=8243
 # CentOS 7 gcc v4.8.5 is old enough need to specify -std=c++11
 RUN mkdir /code && \
     cd /code && \
-    wget --quiet "https://pythia.org/download/pythia${PYTHIA_VERSION:2}/pythia${PYTHIA_VERSION}.tgz" && \
+    wget "https://pythia.org/download/pythia${PYTHIA_VERSION:0:2}/pythia${PYTHIA_VERSION}.tgz" && \
     tar xvfz pythia${PYTHIA_VERSION}.tgz && \
     cd pythia${PYTHIA_VERSION} && \
     ./configure --help && \
