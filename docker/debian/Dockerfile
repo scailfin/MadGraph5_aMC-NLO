@@ -86,7 +86,7 @@ ARG PYTHIA_VERSION=8243
 # PYTHON_VERSION already exists in the base image
 RUN mkdir /code && \
     cd /code && \
-    wget --quiet http://home.thep.lu.se/~torbjorn/pythia8/pythia${PYTHIA_VERSION}.tgz && \
+    wget --quiet "https://pythia.org/download/pythia${PYTHIA_VERSION:2}/pythia${PYTHIA_VERSION}.tgz" && \
     tar xvfz pythia${PYTHIA_VERSION}.tgz && \
     cd pythia${PYTHIA_VERSION} && \
     ./configure --help && \
