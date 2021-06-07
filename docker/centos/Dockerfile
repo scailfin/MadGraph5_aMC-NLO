@@ -22,7 +22,6 @@ RUN yum update -y && \
       bash-completion \
       bash-completion-extras \
       wget \
-      which \
       git && \
     yum clean all && \
     yum autoremove -y
