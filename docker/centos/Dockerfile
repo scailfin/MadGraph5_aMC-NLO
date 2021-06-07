@@ -57,7 +57,7 @@ RUN mkdir /code && \
     cd fastjet-${FASTJET_VERSION} && \
     ./configure --help && \
     export CXX=$(which g++) && \
-    export PYTHON=$(which python) && \
+    export PYTHON=/usr/local/bin/python3 && \
     ./configure \
       --prefix=/usr/local \
       --enable-pyext=yes && \
@@ -75,7 +75,7 @@ RUN mkdir /code && \
     cd LHAPDF-${LHAPDF_VERSION} && \
     ./configure --help && \
     export CXX=$(which g++) && \
-    export PYTHON=$(which python) && \
+    export PYTHON=/usr/local/bin/python3 && \
     ./configure \
       --prefix=/usr/local && \
     make -j$(($(nproc) - 1)) && \
