@@ -35,7 +35,7 @@ RUN mkdir /code && \
     tar xvfz hepmc${HEPMC_VERSION}.tgz && \
     mv HepMC-${HEPMC_VERSION} src && \
     cmake \
-      -DCMAKE_CXX_COMPILER=$(which g++) \
+      -DCMAKE_CXX_COMPILER=$(command -v g++) \
       -DCMAKE_BUILD_TYPE=Release \
       -Dbuild_docs:BOOL=OFF \
       -Dmomentum:STRING=MEV \
@@ -56,7 +56,7 @@ RUN mkdir /code && \
     tar xvfz fastjet-${FASTJET_VERSION}.tar.gz && \
     cd fastjet-${FASTJET_VERSION} && \
     ./configure --help && \
-    export CXX=$(which g++) && \
+    export CXX=$(command -v g++) && \
     export PYTHON=/usr/local/bin/python3 && \
     ./configure \
       --prefix=/usr/local \
@@ -74,7 +74,7 @@ RUN mkdir /code && \
     tar xvfz LHAPDF-${LHAPDF_VERSION}.tar.gz && \
     cd LHAPDF-${LHAPDF_VERSION} && \
     ./configure --help && \
-    export CXX=$(which g++) && \
+    export CXX=$(command -v g++) && \
     export PYTHON=/usr/local/bin/python3 && \
     ./configure \
       --prefix=/usr/local && \
