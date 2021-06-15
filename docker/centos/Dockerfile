@@ -135,7 +135,7 @@ RUN cd /usr/local/venv && \
 # Change the MadGraph5_aMC@NLO configuration settings
 RUN sed -i '/fastjet =/s/^# //g' /usr/local/venv/MG5_aMC/input/mg5_configuration.txt && \
     sed -i '/lhapdf_py3 =/s/^# //g' /usr/local/venv/MG5_aMC/input/mg5_configuration.txt && \
-    sed -i 's|# pythia8_path.*|pythia8_path = /usr/local|g' /usr/local/venv/MG5_aMC/input/mg5_configuration.txt && \
+    sed -i 's|# pythia8_path.*|pythia8_path = /usr/local/venv|g' /usr/local/venv/MG5_aMC/input/mg5_configuration.txt && \
     sed -i '/mg5amc_py8_interface_path =/s/^# //g' /usr/local/venv/MG5_aMC/input/mg5_configuration.txt
 
 # Create user "docker"
