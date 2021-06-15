@@ -165,8 +165,8 @@ RUN if [ -f /root/.profile ];then cp /root/.profile ${HOME}/.profile;fi && \
 
 ENV USER docker
 USER docker
-ENV PYTHONPATH=/usr/local/venv/lib:/usr/local/venv/MG5_aMC:$PYTHONPATH
-ENV LD_LIBRARY_PATH=/usr/local/venv/lib:$LD_LIBRARY_PATH
+# ENV PYTHONPATH=/usr/local/venv/lib:/usr/local/venv/MG5_aMC:$PYTHONPATH
+# ENV LD_LIBRARY_PATH=/usr/local/venv/lib:$LD_LIBRARY_PATH
 ENV PATH=${HOME}/.local/bin:$PATH
 ENV PATH=/usr/local/venv/MG5_aMC/bin:$PATH
 
