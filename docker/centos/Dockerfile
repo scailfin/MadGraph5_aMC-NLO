@@ -154,17 +154,12 @@ ENV LANG=en_US.utf8
 ENV HOME /home/docker
 WORKDIR ${HOME}/data
 
-# ENV PYTHONPATH=/usr/local/venv/lib:/usr/local/venv/MG5_aMC:$PYTHONPATH
 ENV PYTHONPATH=/usr/local/venv/lib:${PYTHONPATH}
-# ENV LD_LIBRARY_PATH=/usr/local/venv/lib:$LD_LIBRARY_PATH
 ENV PATH=${HOME}/.local/bin:$PATH
 ENV PATH=/usr/local/venv/MG5_aMC/bin:$PATH
 
 RUN if [ -f /root/.profile ];then cp /root/.profile ${HOME}/.profile;fi && \
     cp /root/.bashrc ${HOME}/.bashrc && \
-    # echo "" >> ${HOME}/.bashrc && \
-    # echo 'export PATH=${HOME}/.local/bin:$PATH' >> ${HOME}/.bashrc && \
-    # echo 'export PATH=/usr/local/venv/MG5_aMC/bin:$PATH' >> ${HOME}/.bashrc && \
     python -m pip --no-cache-dir install --upgrade pip setuptools wheel && \
     python -m pip --no-cache-dir install six numpy && \
     echo "exit" | mg5_aMC && \
