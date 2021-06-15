@@ -22,7 +22,9 @@ RUN yum update -y && \
       bash-completion \
       bash-completion-extras \
       wget \
+      centos-release-scl \
       git && \
+    yum install -y devtoolset-8 && \
     yum clean all && \
     yum autoremove -y
 
