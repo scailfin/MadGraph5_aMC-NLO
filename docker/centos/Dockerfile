@@ -111,6 +111,25 @@ RUN mkdir /code && \
     make install && \
     rm -rf /code
 
+# Install BOOST
+# c.f. https://www.boost.org/doc/libs/1_76_0/more/getting_started/unix-variants.html
+ARG BOOST_VERSION=1.76.0
+# hadolint ignore=SC2046
+RUN mkdir -p /code && \
+    cd /code && \
+    BOOST_VERSION_UNDERSCORE="${BOOST_VERSION//\./_}" && \
+    curl --silent --location --remote-name "https://boostorg.jfrog.io/artifactory/main/release/${BOOST_VERSION}/source/boost_${BOOST_VERSION_UNDERSCORE}.tar.gz" && \
+    tar -xzf "boost_${BOOST_VERSION_UNDERSCORE}.tar.gz" && \
+    cd "boost_${BOOST_VERSION_UNDERSCORE}" && \
+    source scl_source enable devtoolset-8 && \
+    ./bootstrap.sh --help && \
+    ./bootstrap.sh \
+      --prefix=/usr/local/venv \
+      --with-python=$(command -v python3) && \
+    ./b2 install -j$(($(nproc) - 1)) && \
+    cd / && \
+    rm -rf /code
+
 # Install MadGraph5_aMC@NLO for Python 3 and PYTHIA 8 interface
 ARG MG_VERSION=3.1.1
 RUN cd /usr/local/venv && \
@@ -160,6 +179,7 @@ ENV PATH=/usr/local/venv/MG5_aMC/bin:$PATH
 
 RUN if [ -f /root/.profile ];then cp /root/.profile ${HOME}/.profile;fi && \
     cp /root/.bashrc ${HOME}/.bashrc && \
+    printf "\nsource scl_source enable devtoolset-8\n" >> ${HOME}/.bash_profile && \
     python -m pip --no-cache-dir install --upgrade pip setuptools wheel && \
     python -m pip --no-cache-dir install six numpy && \
     echo "exit" | mg5_aMC && \
