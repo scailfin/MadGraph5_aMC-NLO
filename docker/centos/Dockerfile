@@ -99,9 +99,9 @@ RUN mkdir /code && \
       --cxx=g++ \
       --enable-64bit \
       --with-gzip \
-      --with-hepmc2 \
-      --with-lhapdf6 \
-      --with-fastjet3 \
+      --with-hepmc2=/usr/local/venv \
+      --with-lhapdf6=/usr/local/venv \
+      --with-fastjet3=/usr/local/venv \
       --with-python-bin=/usr/local/venv/bin/ \
       --with-python-lib=/usr/local/venv/lib/python${PYTHON_MINOR_VERSION} \
       --with-python-include=/usr/local/include/python${PYTHON_MINOR_VERSION} \
