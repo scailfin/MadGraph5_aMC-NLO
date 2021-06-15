@@ -27,7 +27,7 @@ test:
 	--build-arg MG_VERSION=3.1.1 \
 	-t scailfin/madgraph5-amc-nlo:debug-local
 
-test-centos: base-centos
+test-centos:
 	docker build . \
 	-f docker/centos/Dockerfile \
 	--build-arg HEPMC_VERSION=2.06.11 \
