@@ -143,6 +143,7 @@ RUN useradd --shell /bin/bash -m docker && \
    cp /root/.bashrc /home/docker/ && \
    mkdir /home/docker/data && \
    chown -R --from=root docker /home/docker && \
+   chown -R --from=root docker /usr/local/venv && \
    chown -R --from=root docker /usr/local/venv/MG5_aMC && \
    chown -R --from=root docker /usr/local/venv/share && \
    chown -R --from=503 docker /usr/local/venv/MG5_aMC
