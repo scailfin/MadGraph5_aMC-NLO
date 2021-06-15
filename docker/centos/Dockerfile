@@ -159,7 +159,9 @@ RUN if [ -f /root/.profile ];then cp /root/.profile ${HOME}/.profile;fi && \
     echo 'export PATH=${HOME}/.local/bin:$PATH' >> ${HOME}/.bashrc && \
     echo 'export PATH=/usr/local/venv/MG5_aMC/bin:$PATH' >> ${HOME}/.bashrc && \
     python -m pip --no-cache-dir install --upgrade pip setuptools wheel && \
-    python -m pip --no-cache-dir install six numpy
+    python -m pip --no-cache-dir install six numpy && \
+    . ${HOME}/.bashrc && \
+    echo "exit" | mg5_aMC
 
 ENV USER docker
 USER docker
