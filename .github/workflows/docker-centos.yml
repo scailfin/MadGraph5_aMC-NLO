@@ -2,10 +2,10 @@ name: Docker Images CentOS
 
 on:
   push:
-    branches:
-    - main
-    tags:
-    - v*
+    # branches:
+    # - main
+    # tags:
+    # - v*
   pull_request:
     branches:
     - main
@@ -30,7 +30,7 @@ jobs:
         run: |
           DOCKER_IMAGE=scailfin/madgraph5-amc-nlo-centos
           VERSION=latest
-          MADGRAPH_VERSION=mg5_amc3.1.1
+          MADGRAPH_VERSION=mg5_amc2.9.4
           REPO_NAME=${{github.repository}}
           REPO_NAME_LOWERCASE="${REPO_NAME,,}"
           if [[ $GITHUB_REF == refs/tags/* ]]; then
@@ -109,16 +109,14 @@ jobs:
 
       - name: Build and publish to registry
         # every PR will trigger a push event on main, so check the push event is actually coming from main
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.repository == 'scailfin/MadGraph5_aMC-NLO'
+        # if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.repository == 'scailfin/MadGraph5_aMC-NLO'
         id: docker_build_latest
         uses: docker/build-push-action@v2
         with:
           context: .
           file: docker/centos/Dockerfile
           tags: |
-            scailfin/madgraph5-amc-nlo-centos:latest
             scailfin/madgraph5-amc-nlo-centos:${{ steps.prep.outputs.madgraph_version }}
-            ghcr.io/${{ steps.prep.outputs.repo_name_lowercase }}:latest-centos
             ghcr.io/${{ steps.prep.outputs.repo_name_lowercase }}:${{ steps.prep.outputs.madgraph_version }}-centos
           labels: |
             org.opencontainers.image.source=${{ github.event.repository.html_url }}
