@@ -143,7 +143,6 @@ RUN useradd --shell /bin/bash -m docker && \
    cp /root/.bashrc /home/docker/ && \
    mkdir /home/docker/data && \
    chown -R --from=root docker /home/docker && \
-   chown -R --from=root docker /home/docker/data && \
    chown -R --from=root docker /usr/local/venv && \
    chown -R --from=503 docker /usr/local/venv/MG5_aMC
 
@@ -168,7 +167,8 @@ RUN if [ -f /root/.profile ];then cp /root/.profile ${HOME}/.profile;fi && \
     # echo 'export PATH=/usr/local/venv/MG5_aMC/bin:$PATH' >> ${HOME}/.bashrc && \
     python -m pip --no-cache-dir install --upgrade pip setuptools wheel && \
     python -m pip --no-cache-dir install six numpy && \
-    echo "exit" | mg5_aMC
+    echo "exit" | mg5_aMC && \
+    rm py.py
 
 ENV USER docker
 USER docker
