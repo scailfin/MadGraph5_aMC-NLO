@@ -92,7 +92,7 @@ RUN mkdir /code && \
     tar xvfz pythia${PYTHIA_VERSION}.tgz && \
     cd pythia${PYTHIA_VERSION} && \
     ./configure --help && \
-    export PYTHON_MINOR_VERSION=${PYTHON_VERSION::-2} && \
+    export PYTHON_MINOR_VERSION=${PYTHON_VERSION::-3} && \
     ./configure \
       --prefix=/usr/local/venv \
       --arch=Linux \
@@ -104,7 +104,7 @@ RUN mkdir /code && \
       --with-fastjet3 \
       --with-python-bin=/usr/local/venv/bin/ \
       --with-python-lib=/usr/local/venv/lib/python${PYTHON_MINOR_VERSION} \
-      --with-python-include=/usr/local/venv/include/python${PYTHON_MINOR_VERSION} \
+      --with-python-include=/usr/local/include/python${PYTHON_MINOR_VERSION} \
       --cxx-common="-O2 -m64 -pedantic -W -Wall -Wshadow -fPIC -std=c++11" \
       --cxx-shared="-shared -std=c++11" && \
     make -j$(($(nproc) - 1)) && \
