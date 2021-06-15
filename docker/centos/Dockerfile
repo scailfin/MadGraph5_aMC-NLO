@@ -57,6 +57,7 @@ RUN mkdir /code && \
     ./configure --help && \
     export CXX=$(command -v g++) && \
     export PYTHON=$(command -v python3) && \
+    export PYTHON_CONFIG=$(find /usr/local/ -iname "python-config.py") && \
     ./configure \
       --prefix=/usr/local/venv \
       --enable-pyext=yes && \
