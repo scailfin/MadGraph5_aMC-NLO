@@ -173,7 +173,7 @@ ENV LANG=en_US.utf8
 ENV HOME /home/docker
 WORKDIR ${HOME}/data
 
-ENV PYTHONPATH=/usr/local/venv/lib:${PYTHONPATH}
+ENV PYTHONPATH=/usr/local/venv/MG5_aMC:/usr/local/venv/lib:${PYTHONPATH}
 ENV PATH=${HOME}/.local/bin:$PATH
 ENV PATH=/usr/local/venv/MG5_aMC/bin:$PATH
 
