@@ -2,10 +2,10 @@ name: Docker Images CentOS
 
 on:
   push:
-    # branches:
-    # - main
-    # tags:
-    # - v*
+    branches:
+    - main
+    tags:
+    - v*
   pull_request:
     branches:
     - main
@@ -109,7 +109,7 @@ jobs:
 
       - name: Build and publish to registry
         # every PR will trigger a push event on main, so check the push event is actually coming from main
-        # if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.repository == 'scailfin/MadGraph5_aMC-NLO'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.repository == 'scailfin/MadGraph5_aMC-NLO'
         id: docker_build_latest
         uses: docker/build-push-action@v2
         with:
