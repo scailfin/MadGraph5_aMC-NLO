@@ -179,7 +179,6 @@ ENV PATH=/usr/local/venv/MG5_aMC/bin:$PATH
 
 RUN if [ -f /root/.profile ];then cp /root/.profile ${HOME}/.profile;fi && \
     cp /root/.bashrc ${HOME}/.bashrc && \
-    printf "\nsource scl_source enable devtoolset-8\n" >> /root/.bash_profile && \
     printf "\nsource scl_source enable devtoolset-8\n" >> ${HOME}/.bash_profile && \
     python -m pip --no-cache-dir install --upgrade pip setuptools wheel && \
     python -m pip --no-cache-dir install six numpy && \
