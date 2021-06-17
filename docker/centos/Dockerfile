@@ -157,7 +157,7 @@ RUN sed -i '/fastjet =/s/^# //g' /usr/local/venv/MG5_aMC/input/mg5_configuration
     sed -i 's|# pythia8_path.*|pythia8_path = /usr/local/venv|g' /usr/local/venv/MG5_aMC/input/mg5_configuration.txt && \
     sed -i '/mg5amc_py8_interface_path =/s/^# //g' /usr/local/venv/MG5_aMC/input/mg5_configuration.txt
 
-# Create user "docker"
+# Create non-root user "docker"
 RUN useradd --shell /bin/bash -m docker && \
    cp /root/.bashrc /home/docker/ && \
    mkdir /home/docker/data && \
@@ -174,7 +174,8 @@ ENV HOME /home/docker
 WORKDIR ${HOME}/data
 
 ENV PYTHONPATH=/usr/local/venv/MG5_aMC:/usr/local/venv/lib:${PYTHONPATH}
-ENV PATH=${HOME}/.local/bin:$PATH
+ENV LD_LIBRARY_PATH=/usr/local/venv/lib:$LD_LIBRARY_PATH
+ENV PATH=${HOME}/.local/bin:/root/.local/bin:$PATH
 ENV PATH=/usr/local/venv/MG5_aMC/bin:$PATH
 
 RUN if [ -f /root/.profile ];then cp /root/.profile ${HOME}/.profile;fi && \
@@ -185,8 +186,9 @@ RUN if [ -f /root/.profile ];then cp /root/.profile ${HOME}/.profile;fi && \
     echo "exit" | mg5_aMC && \
     rm py.py
 
-ENV USER docker
-USER docker
+# Default user is root to avoid uid write permission problems with volumes
+ENV HOME /root
+WORKDIR ${HOME}/data
 
 ENTRYPOINT ["/bin/bash", "-l", "-c"]
 CMD ["/bin/bash"]
