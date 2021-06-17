@@ -186,7 +186,7 @@ RUN if [ -f /root/.profile ];then cp /root/.profile ${HOME}/.profile;fi && \
     rm py.py
 
 ENV USER docker
-USER docker
+USER root
 
 ENTRYPOINT ["/bin/bash", "-l", "-c"]
 CMD ["/bin/bash"]
