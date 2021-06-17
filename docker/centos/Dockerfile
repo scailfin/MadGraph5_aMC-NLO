@@ -174,6 +174,7 @@ ENV HOME /home/docker
 WORKDIR ${HOME}/data
 
 ENV PYTHONPATH=/usr/local/venv/MG5_aMC:/usr/local/venv/lib:${PYTHONPATH}
+ENV LD_LIBRARY_PATH=/usr/local/venv/lib:$LD_LIBRARY_PATH
 ENV PATH=${HOME}/.local/bin:/root/.local/bin:$PATH
 ENV PATH=/usr/local/venv/MG5_aMC/bin:$PATH
 
