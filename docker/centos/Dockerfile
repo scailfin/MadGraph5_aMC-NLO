@@ -187,8 +187,6 @@ RUN if [ -f /root/.profile ];then cp /root/.profile ${HOME}/.profile;fi && \
     rm py.py
 
 # Default user is root to avoid uid write permission problems with volumes
-USER root
-ENV USER root
 ENV HOME /root
 WORKDIR ${HOME}/data
 
