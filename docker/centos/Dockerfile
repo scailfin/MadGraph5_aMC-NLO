@@ -1,4 +1,4 @@
-ARG BUILDER_IMAGE=neubauergroup/centos-build-base:latest
+ARG BUILDER_IMAGE=neubauergroup/centos-build-base:3.8.11
 FROM ${BUILDER_IMAGE} as builder
 
 USER root
