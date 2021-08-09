@@ -21,6 +21,7 @@ RUN apt-get -qq -y update && \
       bash-completion \
       python3-dev \
       wget \
+      ghostscript \
       git && \
     apt-get -y clean && \
     apt-get -y autoremove && \
@@ -132,7 +133,8 @@ RUN cd /usr/local && \
 RUN sed -i '/fastjet =/s/^# //g' /usr/local/MG5_aMC/input/mg5_configuration.txt && \
     sed -i '/lhapdf_py3 =/s/^# //g' /usr/local/MG5_aMC/input/mg5_configuration.txt && \
     sed -i 's|# pythia8_path.*|pythia8_path = /usr/local|g' /usr/local/MG5_aMC/input/mg5_configuration.txt && \
-    sed -i '/mg5amc_py8_interface_path =/s/^# //g' /usr/local/MG5_aMC/input/mg5_configuration.txt
+    sed -i '/mg5amc_py8_interface_path =/s/^# //g' /usr/local/MG5_aMC/input/mg5_configuration.txt && \
+    sed -i 's|# eps_viewer.*|eps_viewer = '$(command -v ghostscript)'|g' /usr/local/MG5_aMC/input/mg5_configuration.txt
 
 # Enable tab completion by uncommenting it from /etc/bash.bashrc
 # The relevant lines are those below the phrase "enable bash completion in interactive shells"
