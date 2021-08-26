@@ -132,7 +132,7 @@ RUN mkdir -p /code && \
     rm -rf /code
 
 # Install MadGraph5_aMC@NLO for Python 3 and PYTHIA 8 interface
-ARG MG_VERSION=3.1.1
+ARG MG_VERSION=3.2.0
 RUN cd /usr/local/venv && \
     wget --quiet https://launchpad.net/mg5amcnlo/3.0/3.1.x/+download/MG5_aMC_v${MG_VERSION}.tar.gz && \
     mkdir -p /usr/local/venv/MG5_aMC && \
