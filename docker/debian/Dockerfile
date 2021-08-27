@@ -135,8 +135,7 @@ RUN sed -i '/fastjet =/s/^# //g' /usr/local/MG5_aMC/input/mg5_configuration.txt 
     sed -i 's|# pythia8_path.*|pythia8_path = /usr/local|g' /usr/local/MG5_aMC/input/mg5_configuration.txt && \
     sed -i '/mg5amc_py8_interface_path =/s/^# //g' /usr/local/MG5_aMC/input/mg5_configuration.txt && \
     sed -i 's|# eps_viewer.*|eps_viewer = '$(command -v ghostscript)'|g' /usr/local/MG5_aMC/input/mg5_configuration.txt && \
-    sed -i 's|# fortran_compiler.*|fortran_compiler = '$(command -v gfortran)'|g' /usr/local/MG5_aMC/input/mg5_configuration.txt && \
-    sed -i 's|# f2py_compiler_py3.*|f2py_compiler_py3 = '$(command -v f2py)'|g' /usr/local/MG5_aMC/input/mg5_configuration.txt
+    sed -i 's|# fortran_compiler.*|fortran_compiler = '$(command -v gfortran)'|g' /usr/local/MG5_aMC/input/mg5_configuration.txt
 
 # Enable tab completion by uncommenting it from /etc/bash.bashrc
 # The relevant lines are those below the phrase "enable bash completion in interactive shells"
@@ -165,7 +164,8 @@ RUN cp /root/.profile ${HOME}/.profile && \
     echo 'export PATH=${HOME}/.local/bin:$PATH' >> ${HOME}/.bashrc && \
     echo 'export PATH=/usr/local/MG5_aMC/bin:$PATH' >> ${HOME}/.bashrc && \
     python -m pip --no-cache-dir install --upgrade pip setuptools wheel && \
-    python -m pip --no-cache-dir install six numpy
+    python -m pip --no-cache-dir install six numpy && \
+    sed -i 's|# f2py_compiler_py3.*|f2py_compiler_py3 = '$(command -v f2py)'|g' /usr/local/MG5_aMC/input/mg5_configuration.txt
 
 ENV USER docker
 USER docker

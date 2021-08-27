@@ -158,8 +158,7 @@ RUN sed -i '/fastjet =/s/^# //g' /usr/local/venv/MG5_aMC/input/mg5_configuration
     sed -i 's|# pythia8_path.*|pythia8_path = /usr/local/venv|g' /usr/local/venv/MG5_aMC/input/mg5_configuration.txt && \
     sed -i '/mg5amc_py8_interface_path =/s/^# //g' /usr/local/venv/MG5_aMC/input/mg5_configuration.txt && \
     sed -i 's|# eps_viewer.*|eps_viewer = '$(command -v ghostscript)'|g' /usr/local/venv/MG5_aMC/input/mg5_configuration.txt && \
-    sed -i 's|# fortran_compiler.*|fortran_compiler = '$(command -v gfortran)'|g' /usr/local/venv/MG5_aMC/input/mg5_configuration.txt && \
-    sed -i 's|# f2py_compiler_py3.*|f2py_compiler_py3 = '$(command -v f2py)'|g' /usr/local/venv/MG5_aMC/input/mg5_configuration.txt
+    sed -i 's|# fortran_compiler.*|fortran_compiler = '$(command -v gfortran)'|g' /usr/local/venv/MG5_aMC/input/mg5_configuration.txt
 
 # Create non-root user "docker"
 RUN useradd --shell /bin/bash -m docker && \
@@ -187,6 +186,7 @@ RUN if [ -f /root/.profile ];then cp /root/.profile ${HOME}/.profile;fi && \
     printf "\nsource scl_source enable devtoolset-8\n" >> ${HOME}/.bash_profile && \
     python -m pip --no-cache-dir install --upgrade pip setuptools wheel && \
     python -m pip --no-cache-dir install six numpy && \
+    sed -i 's|# f2py_compiler_py3.*|f2py_compiler_py3 = '$(command -v f2py)'|g' /usr/local/venv/MG5_aMC/input/mg5_configuration.txt && \
     echo "exit" | mg5_aMC && \
     rm py.py
 
