@@ -91,6 +91,12 @@ jobs:
       - name: List built images
         run: docker images
 
+      - name: List MadGraph5 configuration file
+        run: >-
+          docker run --rm
+          scailfin/madgraph5-amc-nlo-centos:sha-${GITHUB_SHA::8}
+          'cat $(find /usr/local/ -name "mg5_configuration.txt")'
+
       - name: Run pytest tests
         # Need to run not below PWD to have non-root write with GHA
         run: >-
