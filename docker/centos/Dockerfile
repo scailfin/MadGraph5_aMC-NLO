@@ -84,7 +84,7 @@ RUN mkdir /code && \
     rm -rf /code
 
 # Install PYTHIA
-ARG PYTHIA_VERSION=8303
+ARG PYTHIA_VERSION=8306
 # PYTHON_VERSION already exists in the base image
 # CentOS 7 gcc v4.8.5 is old enough need to specify -std=c++11
 RUN mkdir /code && \
