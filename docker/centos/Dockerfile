@@ -84,7 +84,7 @@ RUN mkdir /code && \
     rm -rf /code
 
 # Install PYTHIA
-ARG PYTHIA_VERSION=8243
+ARG PYTHIA_VERSION=8244
 # PYTHON_VERSION already exists in the base image
 # CentOS 7 gcc v4.8.5 is old enough need to specify -std=c++11
 RUN mkdir /code && \
@@ -133,6 +133,9 @@ RUN mkdir -p /code && \
 
 # Install MadGraph5_aMC@NLO for Python 3 and PYTHIA 8 interface
 ARG MG_VERSION=3.2.0
+# Versions viewable on Illinois mirror
+# http://madgraph.physics.illinois.edu/Downloads/MG5aMC_PY8_interface/
+ARG MG5aMC_PY8_INTERFACE_VERSION=1.2
 RUN cd /usr/local/venv && \
     wget --quiet https://launchpad.net/mg5amcnlo/3.0/3.2.x/+download/MG5_aMC_v${MG_VERSION}.tar.gz && \
     mkdir -p /usr/local/venv/MG5_aMC && \
@@ -141,11 +144,11 @@ RUN cd /usr/local/venv && \
     echo "Installing MG5aMC_PY8_interface" && \
     mkdir /code && \
     cd /code && \
-    wget --quiet http://madgraph.phys.ucl.ac.be/Downloads/MG5aMC_PY8_interface/MG5aMC_PY8_interface_V1.0.tar.gz && \
+    wget --quiet http://madgraph.phys.ucl.ac.be/Downloads/MG5aMC_PY8_interface/MG5aMC_PY8_interface_V${MG5aMC_PY8_INTERFACE_VERSION}.tar.gz && \
     mkdir -p /code/MG5aMC_PY8_interface && \
-    tar -xzvf MG5aMC_PY8_interface_V1.0.tar.gz --directory=MG5aMC_PY8_interface && \
+    tar -xzvf MG5aMC_PY8_interface_V${MG5aMC_PY8_INTERFACE_VERSION}.tar.gz --directory=MG5aMC_PY8_interface && \
     cd MG5aMC_PY8_interface && \
-    python compile.py /usr/local/venv/ --pythia8_makefile && \
+    python compile.py /usr/local/venv/ --pythia8_makefile $(find /usr/local/ -type d -name MG5_aMC) && \
     mkdir -p /usr/local/venv/MG5_aMC/HEPTools/MG5aMC_PY8_interface && \
     cp *.h /usr/local/venv/MG5_aMC/HEPTools/MG5aMC_PY8_interface/ && \
     cp *_VERSION_ON_INSTALL /usr/local/venv/MG5_aMC/HEPTools/MG5aMC_PY8_interface/ && \

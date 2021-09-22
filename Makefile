@@ -9,7 +9,7 @@ image:
 	--build-arg HEPMC_VERSION=2.06.11 \
 	--build-arg FASTJET_VERSION=3.3.4 \
 	--build-arg LHAPDF_VERSION=6.3.0 \
-	--build-arg PYTHIA_VERSION=8243 \
+	--build-arg PYTHIA_VERSION=8244 \
 	--build-arg MG_VERSION=3.2.0 \
 	-t scailfin/madgraph5-amc-nlo:latest \
 	-t scailfin/madgraph5-amc-nlo:3.2.0 \
@@ -22,7 +22,7 @@ test:
 	--build-arg HEPMC_VERSION=2.06.11 \
 	--build-arg FASTJET_VERSION=3.3.4 \
 	--build-arg LHAPDF_VERSION=6.3.0 \
-	--build-arg PYTHIA_VERSION=8243 \
+	--build-arg PYTHIA_VERSION=8244 \
 	--build-arg MG_VERSION=3.2.0 \
 	-t scailfin/madgraph5-amc-nlo:debug-local
 

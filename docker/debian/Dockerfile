@@ -83,7 +83,7 @@ RUN mkdir /code && \
     rm -rf /code
 
 # Install PYTHIA
-ARG PYTHIA_VERSION=8243
+ARG PYTHIA_VERSION=8244
 # PYTHON_VERSION already exists in the base image
 RUN mkdir /code && \
     cd /code && \
@@ -91,7 +91,7 @@ RUN mkdir /code && \
     tar xvfz pythia${PYTHIA_VERSION}.tgz && \
     cd pythia${PYTHIA_VERSION} && \
     ./configure --help && \
-    export PYTHON_MINOR_VERSION=${PYTHON_VERSION::-2} && \
+    export PYTHON_MINOR_VERSION=${PYTHON_VERSION::-3} && \
     ./configure \
       --prefix=/usr/local \
       --arch=Linux \
@@ -110,6 +110,9 @@ RUN mkdir /code && \
 
 # Install MadGraph5_aMC@NLO for Python 3 and PYTHIA 8 interface
 ARG MG_VERSION=3.2.0
+# Versions viewable on Illinois mirror
+# http://madgraph.physics.illinois.edu/Downloads/MG5aMC_PY8_interface/
+ARG MG5aMC_PY8_INTERFACE_VERSION=1.2
 RUN cd /usr/local && \
     wget --quiet https://launchpad.net/mg5amcnlo/3.0/3.2.x/+download/MG5_aMC_v${MG_VERSION}.tar.gz && \
     mkdir -p /usr/local/MG5_aMC && \
@@ -118,11 +121,11 @@ RUN cd /usr/local && \
     echo "Installing MG5aMC_PY8_interface" && \
     mkdir /code && \
     cd /code && \
-    wget --quiet http://madgraph.phys.ucl.ac.be/Downloads/MG5aMC_PY8_interface/MG5aMC_PY8_interface_V1.0.tar.gz && \
+    wget --quiet http://madgraph.phys.ucl.ac.be/Downloads/MG5aMC_PY8_interface/MG5aMC_PY8_interface_V${MG5aMC_PY8_INTERFACE_VERSION}.tar.gz && \
     mkdir -p /code/MG5aMC_PY8_interface && \
-    tar -xzvf MG5aMC_PY8_interface_V1.0.tar.gz --directory=MG5aMC_PY8_interface && \
+    tar -xzvf MG5aMC_PY8_interface_V${MG5aMC_PY8_INTERFACE_VERSION}.tar.gz --directory=MG5aMC_PY8_interface && \
     cd MG5aMC_PY8_interface && \
-    python compile.py /usr/local/ --pythia8_makefile && \
+    python compile.py /usr/local/ --pythia8_makefile $(find /usr/local/ -type d -name MG5_aMC) && \
     mkdir -p /usr/local/MG5_aMC/HEPTools/MG5aMC_PY8_interface && \
     cp *.h /usr/local/MG5_aMC/HEPTools/MG5aMC_PY8_interface/ && \
     cp *_VERSION_ON_INSTALL /usr/local/MG5_aMC/HEPTools/MG5aMC_PY8_interface/ && \
