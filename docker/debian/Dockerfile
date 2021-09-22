@@ -91,7 +91,7 @@ RUN mkdir /code && \
     tar xvfz pythia${PYTHIA_VERSION}.tgz && \
     cd pythia${PYTHIA_VERSION} && \
     ./configure --help && \
-    export PYTHON_MINOR_VERSION=${PYTHON_VERSION::-2} && \
+    export PYTHON_MINOR_VERSION=${PYTHON_VERSION::-3} && \
     ./configure \
       --prefix=/usr/local \
       --arch=Linux \
