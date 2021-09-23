@@ -22,6 +22,7 @@ RUN apt-get -qq -y update && \
       python3-dev \
       wget \
       ghostscript \
+      bc \
       git && \
     apt-get -y clean && \
     apt-get -y autoremove && \
