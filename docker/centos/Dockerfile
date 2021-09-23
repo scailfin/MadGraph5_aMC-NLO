@@ -23,6 +23,7 @@ RUN yum update -y && \
       bash-completion-extras \
       wget \
       ghostscript \
+      bc \
       git && \
     yum clean all && \
     yum autoremove -y
