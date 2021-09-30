@@ -192,6 +192,10 @@ RUN if [ -f /root/.profile ];then cp /root/.profile ${HOME}/.profile;fi && \
     python -m pip --no-cache-dir install six numpy && \
     sed -i 's|# f2py_compiler_py3.*|f2py_compiler_py3 = '$(command -v f2py)'|g' /usr/local/venv/MG5_aMC/input/mg5_configuration.txt && \
     echo "exit" | mg5_aMC && \
+    echo "install oneloop" | mg5_aMC && \
+    echo "install collier" | mg5_aMC && \
+    echo "generate p p > e+ e- aEW=2 aS=0 [QCD]; output test_nlo" | mg5_aMC && \
+    rm -rf test_nlo && \
     rm py.py
 
 # Default user is root to avoid uid write permission problems with volumes

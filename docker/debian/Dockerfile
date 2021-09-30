@@ -184,6 +184,10 @@ ENV PATH=/usr/local/venv/MG5_aMC/bin:$PATH
 RUN if [ -f /root/.profile ];then cp /root/.profile ${HOME}/.profile;fi && \
     cp /root/.bashrc ${HOME}/.bashrc && \
     echo "exit" | mg5_aMC && \
+    echo "install oneloop" | mg5_aMC && \
+    echo "install collier" | mg5_aMC && \
+    echo "generate p p > e+ e- aEW=2 aS=0 [QCD]; output test_nlo" | mg5_aMC && \
+    rm -rf test_nlo && \
     rm py.py
 
 # Default user is root to avoid uid write permission problems with volumes
