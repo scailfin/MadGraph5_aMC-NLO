@@ -181,6 +181,8 @@ WORKDIR ${HOME}/data
 ENV PATH=${HOME}/.local/bin:/root/.local/bin:$PATH
 ENV PATH=/usr/local/venv/MG5_aMC/bin:$PATH
 
+# TODO: Install NLO dependencies independently for greater control
+# Running the NLO process forces install of cuttools and iregi
 RUN if [ -f /root/.profile ];then cp /root/.profile ${HOME}/.profile;fi && \
     cp /root/.bashrc ${HOME}/.bashrc && \
     echo "exit" | mg5_aMC && \

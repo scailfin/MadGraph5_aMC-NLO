@@ -185,6 +185,8 @@ ENV LD_LIBRARY_PATH=/usr/local/venv/lib:$LD_LIBRARY_PATH
 ENV PATH=${HOME}/.local/bin:/root/.local/bin:$PATH
 ENV PATH=/usr/local/venv/MG5_aMC/bin:$PATH
 
+# TODO: Install NLO dependencies independently for greater control
+# Running the NLO process forces install of cuttools and iregi
 RUN if [ -f /root/.profile ];then cp /root/.profile ${HOME}/.profile;fi && \
     cp /root/.bashrc ${HOME}/.bashrc && \
     printf "\nsource scl_source enable devtoolset-8\n" >> ${HOME}/.bash_profile && \
