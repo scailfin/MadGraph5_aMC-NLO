@@ -35,7 +35,6 @@ RUN apt-get -qq -y update && \
     python -m pip list && \
     printf '\nexport PATH=/usr/local/venv/bin:"${PATH}"\n' >> /root/.bashrc
 
-
 # Install HepMC
 ARG HEPMC_VERSION=2.06.11
 RUN mkdir /code && \
@@ -66,7 +65,7 @@ RUN mkdir /code && \
     cd fastjet-${FASTJET_VERSION} && \
     ./configure --help && \
     export CXX=$(which g++) && \
-    export PYTHON=$(which python) && \
+    export PYTHON_CONFIG=$(find /usr/local/ -iname "python-config.py") && \
     ./configure \
       --prefix=/usr/local/venv \
       --enable-pyext=yes && \
