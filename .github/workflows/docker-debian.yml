@@ -97,6 +97,14 @@ jobs:
           scailfin/madgraph5-amc-nlo:sha-${GITHUB_SHA::8}
           'cat $(find /usr/local/ -name "mg5_configuration.txt")'
 
+      - name: Run pytest tests
+        # Need to run not below PWD to have non-root write with GHA
+        run: >-
+          docker run --rm
+          -v $PWD:$PWD
+          scailfin/madgraph5-amc-nlo:sha-${GITHUB_SHA::8}
+          "cp -r ${PWD}/tests .; python -m pip install pytest && pytest tests"
+
       - name: Run test program
         # Need to run not below PWD to have non-root write with GHA
         run: >-
