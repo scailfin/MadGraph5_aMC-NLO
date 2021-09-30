@@ -115,7 +115,9 @@ RUN mkdir /code && \
       --with-fastjet3 \
       --with-python-bin=/usr/local/venv/bin/ \
       --with-python-lib=/usr/local/venv/lib/python${PYTHON_MINOR_VERSION} \
-      --with-python-include=/usr/local/venv/include/python${PYTHON_MINOR_VERSION} && \
+      --with-python-include=/usr/local/venv/include/python${PYTHON_MINOR_VERSION} \
+      --cxx-common="-O2 -m64 -pedantic -W -Wall -Wshadow -fPIC -std=c++17" \
+      --cxx-shared="-shared -std=c++17" && \
     make -j$(($(nproc) - 1)) && \
     make install && \
     rm -rf /code
