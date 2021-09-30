@@ -35,6 +35,9 @@ RUN apt-get -qq -y update && \
     python -m pip list && \
     printf '\nexport PATH=/usr/local/venv/bin:"${PATH}"\n' >> /root/.bashrc
 
+ENV PYTHONPATH=/usr/local/venv/lib:/usr/local/venv/MG5_aMC:$PYTHONPATH
+ENV LD_LIBRARY_PATH=/usr/local/venv/lib:$LD_LIBRARY_PATH
+
 # Install HepMC
 ARG HEPMC_VERSION=2.06.11
 RUN mkdir /code && \
@@ -65,6 +68,7 @@ RUN mkdir /code && \
     cd fastjet-${FASTJET_VERSION} && \
     ./configure --help && \
     export CXX=$(which g++) && \
+    export PYTHON=$(command -v python) && \
     export PYTHON_CONFIG=$(find /usr/local/ -iname "python-config.py") && \
     ./configure \
       --prefix=/usr/local/venv \
@@ -180,8 +184,6 @@ RUN cp /root/.profile ${HOME}/.profile && \
 
 ENV USER docker
 USER docker
-ENV PYTHONPATH=/usr/local/venv/lib:/usr/local/venv/MG5_aMC:$PYTHONPATH
-ENV LD_LIBRARY_PATH=/usr/local/venv/lib:$LD_LIBRARY_PATH
 ENV PATH=${HOME}/.local/bin:$PATH
 ENV PATH=/usr/local/venv/MG5_aMC/bin:$PATH
 
