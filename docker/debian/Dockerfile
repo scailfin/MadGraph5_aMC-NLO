@@ -2,7 +2,7 @@ ARG BUILDER_IMAGE=python:3.8-slim-buster
 FROM ${BUILDER_IMAGE} as builder
 
 USER root
-WORKDIR /usr/local
+WORKDIR /
 
 SHELL [ "/bin/bash", "-c" ]
 
@@ -32,6 +32,7 @@ RUN apt-get -qq -y update && \
     python -m venv /usr/local/venv && \
     . /usr/local/venv/bin/activate && \
     python -m pip --no-cache-dir install --upgrade pip setuptools wheel && \
+    python -m pip --no-cache-dir install six numpy && \
     python -m pip list && \
     printf '\nexport PATH=/usr/local/venv/bin:"${PATH}"\n' >> /root/.bashrc
 
@@ -152,7 +153,8 @@ RUN sed -i '/fastjet =/s/^# //g' /usr/local/venv/MG5_aMC/input/mg5_configuration
     sed -i 's|# pythia8_path.*|pythia8_path = /usr/local/venv|g' /usr/local/venv/MG5_aMC/input/mg5_configuration.txt && \
     sed -i '/mg5amc_py8_interface_path =/s/^# //g' /usr/local/venv/MG5_aMC/input/mg5_configuration.txt && \
     sed -i 's|# eps_viewer.*|eps_viewer = '$(command -v ghostscript)'|g' /usr/local/venv/MG5_aMC/input/mg5_configuration.txt && \
-    sed -i 's|# fortran_compiler.*|fortran_compiler = '$(command -v gfortran)'|g' /usr/local/venv/MG5_aMC/input/mg5_configuration.txt
+    sed -i 's|# fortran_compiler.*|fortran_compiler = '$(command -v gfortran)'|g' /usr/local/venv/MG5_aMC/input/mg5_configuration.txt && \
+    sed -i 's|# f2py_compiler_py3.*|f2py_compiler_py3 = '$(command -v f2py)'|g' /usr/local/venv/MG5_aMC/input/mg5_configuration.txt
 
 # Enable tab completion by uncommenting it from /etc/bash.bashrc
 # The relevant lines are those below the phrase "enable bash completion in interactive shells"
@@ -160,13 +162,12 @@ RUN export SED_RANGE="$(($(sed -n '\|enable bash completion in interactive shell
     sed -i -e "${SED_RANGE}"' s/^#//' /etc/bash.bashrc && \
     unset SED_RANGE
 
-# Create user "docker"
+# Create non-root user "docker"
 RUN useradd --shell /bin/bash -m docker && \
    cp /root/.bashrc /home/docker/ && \
    mkdir /home/docker/data && \
    chown -R --from=root docker /home/docker && \
-   chown -R --from=root docker /usr/local/venv/MG5_aMC && \
-   chown -R --from=root docker /usr/local/venv/share && \
+   chown -R --from=root docker /usr/local/venv && \
    chown -R --from=503 docker /usr/local/venv/MG5_aMC
 
 # Use C.UTF-8 locale to avoid issues with ASCII encoding
@@ -175,19 +176,18 @@ ENV LANG=C.UTF-8
 
 ENV HOME /home/docker
 WORKDIR ${HOME}/data
-RUN cp /root/.profile ${HOME}/.profile && \
-    cp /root/.bashrc ${HOME}/.bashrc && \
-    echo "" >> ${HOME}/.bashrc && \
-    echo 'export PATH=${HOME}/.local/bin:$PATH' >> ${HOME}/.bashrc && \
-    echo 'export PATH=/usr/local/venv/MG5_aMC/bin:$PATH' >> ${HOME}/.bashrc && \
-    python -m pip --no-cache-dir install --upgrade pip setuptools wheel && \
-    python -m pip --no-cache-dir install six numpy && \
-    sed -i 's|# f2py_compiler_py3.*|f2py_compiler_py3 = '$(command -v f2py)'|g' /usr/local/venv/MG5_aMC/input/mg5_configuration.txt
 
-ENV USER docker
-USER docker
-ENV PATH=${HOME}/.local/bin:$PATH
+ENV PATH=${HOME}/.local/bin:/root/.local/bin:$PATH
 ENV PATH=/usr/local/venv/MG5_aMC/bin:$PATH
+
+RUN if [ -f /root/.profile ];then cp /root/.profile ${HOME}/.profile;fi && \
+    cp /root/.bashrc ${HOME}/.bashrc && \
+    echo "exit" | mg5_aMC && \
+    rm py.py
+
+# Default user is root to avoid uid write permission problems with volumes
+ENV HOME /root
+WORKDIR ${HOME}/data
 
 ENTRYPOINT ["/bin/bash", "-l", "-c"]
 CMD ["/bin/bash"]
