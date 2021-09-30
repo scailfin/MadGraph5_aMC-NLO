@@ -18,6 +18,13 @@ The Docker image contains:
 * [PYTHIA](http://home.thep.lu.se/~torbjorn/Pythia.html) `v8.244`
 * [BOOST](https://www.boost.org/doc/libs/1_76_0/more/getting_started/unix-variants.html) `v1.76.0`
 
+Additionally contains MadGraph5 controlled dependencies for NLO processes:
+
+* [CutTools](https://inspirehep.net/literature/768411)
+* [IREGI](https://inspirehep.net/literature/1293923)
+* [Ninja](https://github.com/peraro/ninja)
+* [Collier](https://inspirehep.net/literature/1451658)
+
 ## Installation
 
 - Check the [list of available tags on Docker Hub](https://hub.docker.com/r/scailfin/madgraph5-amc-nlo/tags?page=1) to find the tag you want.
