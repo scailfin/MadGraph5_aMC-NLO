@@ -6,6 +6,8 @@ WORKDIR /usr/local
 
 SHELL [ "/bin/bash", "-c" ]
 
+# Set PATH to pickup virtualenv by default
+ENV PATH=/usr/local/venv/bin:"${PATH}"
 RUN apt-get -qq -y update && \
     apt-get -qq -y install --no-install-recommends \
       gcc \
@@ -26,7 +28,13 @@ RUN apt-get -qq -y update && \
       git && \
     apt-get -y clean && \
     apt-get -y autoremove && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* && \
+    python -m venv /usr/local/venv && \
+    . /usr/local/venv/bin/activate && \
+    python -m pip --no-cache-dir install --upgrade pip setuptools wheel && \
+    python -m pip list && \
+    printf '\nexport PATH=/usr/local/venv/bin:"${PATH}"\n' >> /root/.bashrc
+
 
 # Install HepMC
 ARG HEPMC_VERSION=2.06.11
