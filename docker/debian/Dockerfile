@@ -49,7 +49,7 @@ RUN mkdir /code && \
       -Dbuild_docs:BOOL=OFF \
       -Dmomentum:STRING=MEV \
       -Dlength:STRING=MM \
-      -DCMAKE_INSTALL_PREFIX=/usr/local \
+      -DCMAKE_INSTALL_PREFIX=/usr/local/venv \
       -S src \
       -B build && \
     cmake build -L && \
@@ -68,7 +68,7 @@ RUN mkdir /code && \
     export CXX=$(which g++) && \
     export PYTHON=$(which python) && \
     ./configure \
-      --prefix=/usr/local \
+      --prefix=/usr/local/venv \
       --enable-pyext=yes && \
     make -j$(($(nproc) - 1)) && \
     make check && \
@@ -86,7 +86,7 @@ RUN mkdir /code && \
     export CXX=$(which g++) && \
     export PYTHON=$(which python) && \
     ./configure \
-      --prefix=/usr/local && \
+      --prefix=/usr/local/venv && \
     make -j$(($(nproc) - 1)) && \
     make install && \
     rm -rf /code
@@ -102,7 +102,7 @@ RUN mkdir /code && \
     ./configure --help && \
     export PYTHON_MINOR_VERSION=${PYTHON_VERSION::-3} && \
     ./configure \
-      --prefix=/usr/local \
+      --prefix=/usr/local/venv \
       --arch=Linux \
       --cxx=g++ \
       --enable-64bit \
@@ -110,9 +110,9 @@ RUN mkdir /code && \
       --with-hepmc2 \
       --with-lhapdf6 \
       --with-fastjet3 \
-      --with-python-bin=/usr/local/bin/ \
-      --with-python-lib=/usr/local/lib/python${PYTHON_MINOR_VERSION} \
-      --with-python-include=/usr/local/include/python${PYTHON_MINOR_VERSION} && \
+      --with-python-bin=/usr/local/venv/bin/ \
+      --with-python-lib=/usr/local/venv/lib/python${PYTHON_MINOR_VERSION} \
+      --with-python-include=/usr/local/venv/include/python${PYTHON_MINOR_VERSION} && \
     make -j$(($(nproc) - 1)) && \
     make install && \
     rm -rf /code
@@ -122,9 +122,9 @@ ARG MG_VERSION=3.2.0
 # Versions viewable on Illinois mirror
 # http://madgraph.physics.illinois.edu/Downloads/MG5aMC_PY8_interface/
 ARG MG5aMC_PY8_INTERFACE_VERSION=1.2
-RUN cd /usr/local && \
+RUN cd /usr/local/venv && \
     wget --quiet https://launchpad.net/mg5amcnlo/3.0/3.2.x/+download/MG5_aMC_v${MG_VERSION}.tar.gz && \
-    mkdir -p /usr/local/MG5_aMC && \
+    mkdir -p /usr/local/venv/MG5_aMC && \
     tar -xzvf MG5_aMC_v${MG_VERSION}.tar.gz --strip=1 --directory=MG5_aMC && \
     rm MG5_aMC_v${MG_VERSION}.tar.gz && \
     echo "Installing MG5aMC_PY8_interface" && \
@@ -134,20 +134,20 @@ RUN cd /usr/local && \
     mkdir -p /code/MG5aMC_PY8_interface && \
     tar -xzvf MG5aMC_PY8_interface_V${MG5aMC_PY8_INTERFACE_VERSION}.tar.gz --directory=MG5aMC_PY8_interface && \
     cd MG5aMC_PY8_interface && \
-    python compile.py /usr/local/ --pythia8_makefile $(find /usr/local/ -type d -name MG5_aMC) && \
-    mkdir -p /usr/local/MG5_aMC/HEPTools/MG5aMC_PY8_interface && \
-    cp *.h /usr/local/MG5_aMC/HEPTools/MG5aMC_PY8_interface/ && \
-    cp *_VERSION_ON_INSTALL /usr/local/MG5_aMC/HEPTools/MG5aMC_PY8_interface/ && \
-    cp MG5aMC_PY8_interface /usr/local/MG5_aMC/HEPTools/MG5aMC_PY8_interface/ && \
+    python compile.py /usr/local/venv/ --pythia8_makefile $(find /usr/local/ -type d -name MG5_aMC) && \
+    mkdir -p /usr/local/venv/MG5_aMC/HEPTools/MG5aMC_PY8_interface && \
+    cp *.h /usr/local/venv/MG5_aMC/HEPTools/MG5aMC_PY8_interface/ && \
+    cp *_VERSION_ON_INSTALL /usr/local/venv/MG5_aMC/HEPTools/MG5aMC_PY8_interface/ && \
+    cp MG5aMC_PY8_interface /usr/local/venv/MG5_aMC/HEPTools/MG5aMC_PY8_interface/ && \
     rm -rf /code
 
 # Change the MadGraph5_aMC@NLO configuration settings
-RUN sed -i '/fastjet =/s/^# //g' /usr/local/MG5_aMC/input/mg5_configuration.txt && \
-    sed -i '/lhapdf_py3 =/s/^# //g' /usr/local/MG5_aMC/input/mg5_configuration.txt && \
-    sed -i 's|# pythia8_path.*|pythia8_path = /usr/local|g' /usr/local/MG5_aMC/input/mg5_configuration.txt && \
-    sed -i '/mg5amc_py8_interface_path =/s/^# //g' /usr/local/MG5_aMC/input/mg5_configuration.txt && \
-    sed -i 's|# eps_viewer.*|eps_viewer = '$(command -v ghostscript)'|g' /usr/local/MG5_aMC/input/mg5_configuration.txt && \
-    sed -i 's|# fortran_compiler.*|fortran_compiler = '$(command -v gfortran)'|g' /usr/local/MG5_aMC/input/mg5_configuration.txt
+RUN sed -i '/fastjet =/s/^# //g' /usr/local/venv/MG5_aMC/input/mg5_configuration.txt && \
+    sed -i '/lhapdf_py3 =/s/^# //g' /usr/local/venv/MG5_aMC/input/mg5_configuration.txt && \
+    sed -i 's|# pythia8_path.*|pythia8_path = /usr/local/venv|g' /usr/local/venv/MG5_aMC/input/mg5_configuration.txt && \
+    sed -i '/mg5amc_py8_interface_path =/s/^# //g' /usr/local/venv/MG5_aMC/input/mg5_configuration.txt && \
+    sed -i 's|# eps_viewer.*|eps_viewer = '$(command -v ghostscript)'|g' /usr/local/venv/MG5_aMC/input/mg5_configuration.txt && \
+    sed -i 's|# fortran_compiler.*|fortran_compiler = '$(command -v gfortran)'|g' /usr/local/venv/MG5_aMC/input/mg5_configuration.txt
 
 # Enable tab completion by uncommenting it from /etc/bash.bashrc
 # The relevant lines are those below the phrase "enable bash completion in interactive shells"
@@ -160,9 +160,9 @@ RUN useradd --shell /bin/bash -m docker && \
    cp /root/.bashrc /home/docker/ && \
    mkdir /home/docker/data && \
    chown -R --from=root docker /home/docker && \
-   chown -R --from=root docker /usr/local/MG5_aMC && \
-   chown -R --from=root docker /usr/local/share && \
-   chown -R --from=503 docker /usr/local/MG5_aMC
+   chown -R --from=root docker /usr/local/venv/MG5_aMC && \
+   chown -R --from=root docker /usr/local/venv/share && \
+   chown -R --from=503 docker /usr/local/venv/MG5_aMC
 
 # Use C.UTF-8 locale to avoid issues with ASCII encoding
 ENV LC_ALL=C.UTF-8
@@ -174,17 +174,17 @@ RUN cp /root/.profile ${HOME}/.profile && \
     cp /root/.bashrc ${HOME}/.bashrc && \
     echo "" >> ${HOME}/.bashrc && \
     echo 'export PATH=${HOME}/.local/bin:$PATH' >> ${HOME}/.bashrc && \
-    echo 'export PATH=/usr/local/MG5_aMC/bin:$PATH' >> ${HOME}/.bashrc && \
+    echo 'export PATH=/usr/local/venv/MG5_aMC/bin:$PATH' >> ${HOME}/.bashrc && \
     python -m pip --no-cache-dir install --upgrade pip setuptools wheel && \
     python -m pip --no-cache-dir install six numpy && \
-    sed -i 's|# f2py_compiler_py3.*|f2py_compiler_py3 = '$(command -v f2py)'|g' /usr/local/MG5_aMC/input/mg5_configuration.txt
+    sed -i 's|# f2py_compiler_py3.*|f2py_compiler_py3 = '$(command -v f2py)'|g' /usr/local/venv/MG5_aMC/input/mg5_configuration.txt
 
 ENV USER docker
 USER docker
-ENV PYTHONPATH=/usr/local/lib:/usr/local/MG5_aMC:$PYTHONPATH
-ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+ENV PYTHONPATH=/usr/local/venv/lib:/usr/local/venv/MG5_aMC:$PYTHONPATH
+ENV LD_LIBRARY_PATH=/usr/local/venv/lib:$LD_LIBRARY_PATH
 ENV PATH=${HOME}/.local/bin:$PATH
-ENV PATH=/usr/local/MG5_aMC/bin:$PATH
+ENV PATH=/usr/local/venv/MG5_aMC/bin:$PATH
 
 ENTRYPOINT ["/bin/bash", "-l", "-c"]
 CMD ["/bin/bash"]
