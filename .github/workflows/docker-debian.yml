@@ -113,6 +113,13 @@ jobs:
           scailfin/madgraph5-amc-nlo:sha-${GITHUB_SHA::8}
           "cp -r ${PWD}/tests .; cd tests; bash tests.sh"
 
+      - name: Check NLO process has dependencies
+        run: >-
+          docker run --rm
+          -v $PWD:$PWD
+          scailfin/madgraph5-amc-nlo:sha-${GITHUB_SHA::8}
+          "cp -r ${PWD}/tests/* .; mg5_aMC test_NLO.mg5"
+
       - name: Build and publish to registry
         # every PR will trigger a push event on main, so check the push event is actually coming from main
         if: github.event_name == 'push' && github.ref == 'refs/heads/main' && github.repository == 'scailfin/MadGraph5_aMC-NLO'
