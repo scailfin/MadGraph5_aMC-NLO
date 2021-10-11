@@ -43,7 +43,7 @@ ENV LD_LIBRARY_PATH=/usr/local/venv/lib:$LD_LIBRARY_PATH
 ARG HEPMC_VERSION=3.2.4
 RUN mkdir /code && \
     cd /code && \
-    wget http://hepmc.web.cern.ch/hepmc/releases/HepMC3-${HEPMC_VERSION}.tgz && \
+    wget http://hepmc.web.cern.ch/hepmc/releases/HepMC3-${HEPMC_VERSION}.tar.gz && \
     tar xvfz HepMC3-${HEPMC_VERSION}.tgz && \
     mv HepMC-${HEPMC_VERSION} src && \
     cmake \
