@@ -52,6 +52,8 @@ RUN mkdir /code && \
       -Dbuild_docs:BOOL=OFF \
       -Dmomentum:STRING=MEV \
       -Dlength:STRING=MM \
+      -DHEPMC3_ENABLE_ROOTIO=OFF \
+      -DHEPMC3_PYTHON_VERSIONS=3.X \
       -DCMAKE_INSTALL_PREFIX=/usr/local/venv \
       -S src \
       -B build && \
