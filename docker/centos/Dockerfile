@@ -32,8 +32,8 @@ RUN yum update -y && \
 ARG HEPMC_VERSION=3.2.4
 RUN mkdir /code && \
     cd /code && \
-    wget http://hepmc.web.cern.ch/hepmc/releases/hepmc${HEPMC_VERSION}.tgz && \
-    tar xvfz hepmc${HEPMC_VERSION}.tgz && \
+    wget http://hepmc.web.cern.ch/hepmc/releases/HepMC3-${HEPMC_VERSION}.tgz && \
+    tar xvfz HepMC3-${HEPMC_VERSION}.tgz && \
     mv HepMC-${HEPMC_VERSION} src && \
     cmake \
       -DCMAKE_CXX_COMPILER=$(command -v g++) \
@@ -101,7 +101,7 @@ RUN mkdir /code && \
       --cxx=g++ \
       --enable-64bit \
       --with-gzip \
-      --with-hepmc2=/usr/local/venv \
+      --with-hepmc3=/usr/local/venv \
       --with-lhapdf6=/usr/local/venv \
       --with-fastjet3=/usr/local/venv \
       --with-python-bin=/usr/local/venv/bin/ \
