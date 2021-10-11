@@ -12,7 +12,7 @@ The Docker image contains:
 
 * [MadGraph5_aMC@NLO](https://launchpad.net/mg5amcnlo) `v3.2.0`
 * Python 3.8
-* [HepMC2](http://hepmc.web.cern.ch/hepmc/) `v2.06.11`
+* [HepMC2](http://hepmc.web.cern.ch/hepmc/) `v3.2.4`
 * [LHAPDF](https://lhapdf.hepforge.org/) `v6.3.0`
 * [FastJet](http://fastjet.fr/) `v3.3.4`
 * [PYTHIA](http://home.thep.lu.se/~torbjorn/Pythia.html) `v8.244`
