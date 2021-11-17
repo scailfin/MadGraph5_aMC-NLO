@@ -4,7 +4,7 @@ set -e
 set -u
 set -o pipefail
 
-test_image="scailfin/madgraph5-amc-nlo:mg5_amc3.2.0"
+test_image="scailfin/madgraph5-amc-nlo:mg5_amc3.3.0"
 
 docker pull "${test_image}"
 docker run \
