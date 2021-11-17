@@ -30,7 +30,7 @@ jobs:
         run: |
           DOCKER_IMAGE=scailfin/madgraph5-amc-nlo-centos
           VERSION=latest
-          MADGRAPH_VERSION=mg5_amc3.2.0
+          MADGRAPH_VERSION=mg5_amc3.3.0
           REPO_NAME=${{github.repository}}
           REPO_NAME_LOWERCASE="${REPO_NAME,,}"
           if [[ $GITHUB_REF == refs/tags/* ]]; then

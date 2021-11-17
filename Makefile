@@ -10,9 +10,9 @@ image:
 	--build-arg FASTJET_VERSION=3.3.4 \
 	--build-arg LHAPDF_VERSION=6.3.0 \
 	--build-arg PYTHIA_VERSION=8244 \
-	--build-arg MG_VERSION=3.2.0 \
+	--build-arg MG_VERSION=3.3.0 \
 	-t scailfin/madgraph5-amc-nlo:latest \
-	-t scailfin/madgraph5-amc-nlo:3.2.0 \
+	-t scailfin/madgraph5-amc-nlo:3.3.0 \
 	--compress
 
 test:
@@ -23,7 +23,7 @@ test:
 	--build-arg FASTJET_VERSION=3.3.4 \
 	--build-arg LHAPDF_VERSION=6.3.0 \
 	--build-arg PYTHIA_VERSION=8244 \
-	--build-arg MG_VERSION=3.2.0 \
+	--build-arg MG_VERSION=3.3.0 \
 	-t scailfin/madgraph5-amc-nlo:debug-local
 
 test-centos:
@@ -33,5 +33,5 @@ test-centos:
 	--build-arg FASTJET_VERSION=3.3.4 \
 	--build-arg LHAPDF_VERSION=6.3.0 \
 	--build-arg PYTHIA_VERSION=8243 \
-	--build-arg MG_VERSION=3.2.0 \
+	--build-arg MG_VERSION=3.3.0 \
 	-t scailfin/madgraph5-amc-nlo-centos:debug-local
