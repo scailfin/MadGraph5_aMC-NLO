@@ -129,7 +129,7 @@ ARG MG_VERSION=3.3.0
 # http://madgraph.physics.illinois.edu/Downloads/MG5aMC_PY8_interface/
 ARG MG5aMC_PY8_INTERFACE_VERSION=1.2
 RUN cd /usr/local/venv && \
-    wget --quiet https://launchpad.net/mg5amcnlo/3.0/3.2.x/+download/MG5_aMC_v${MG_VERSION}.tar.gz && \
+    wget --quiet https://launchpad.net/mg5amcnlo/3.0/3.3.x/+download/MG5_aMC_v${MG_VERSION}.tar.gz && \
     mkdir -p /usr/local/venv/MG5_aMC && \
     tar -xzvf MG5_aMC_v${MG_VERSION}.tar.gz --strip=1 --directory=MG5_aMC && \
     rm MG5_aMC_v${MG_VERSION}.tar.gz && \
