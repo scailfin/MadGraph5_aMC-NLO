@@ -16,7 +16,7 @@ RUN apt-get -qq -y update && \
       make \
       cmake \
       vim \
-      zlibc \
+      zlib1g \
       zlib1g-dev \
       libbz2-dev \
       rsync \
