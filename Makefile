@@ -3,6 +3,7 @@ default: image
 all: image
 
 image:
+	docker pull python:3.8-slim-bullseye
 	docker build . \
 	-f docker/debian/Dockerfile \
 	--build-arg BUILDER_IMAGE=python:3.8-slim-bullseye \
@@ -16,6 +17,7 @@ image:
 	--compress
 
 test:
+	docker pull python:3.8-slim-bullseye
 	docker build . \
 	-f docker/debian/Dockerfile \
 	--build-arg BUILDER_IMAGE=python:3.8-slim-bullseye \
