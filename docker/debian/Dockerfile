@@ -1,4 +1,4 @@
-ARG BUILDER_IMAGE=python:3.8-slim-buster
+ARG BUILDER_IMAGE=python:3.8-slim-bullseye
 FROM ${BUILDER_IMAGE} as builder
 
 USER root
@@ -16,7 +16,7 @@ RUN apt-get -qq -y update && \
       make \
       cmake \
       vim \
-      zlibc \
+      zlib1g \
       zlib1g-dev \
       libbz2-dev \
       rsync \
