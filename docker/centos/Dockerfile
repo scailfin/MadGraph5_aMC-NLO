@@ -133,7 +133,7 @@ RUN mkdir -p /code && \
     rm -rf /code
 
 # Install MadGraph5_aMC@NLO for Python 3 and PYTHIA 8 interface
-ARG MG_VERSION=3.3.2
+ARG MG_VERSION=3.4.0
 # Versions viewable on Illinois mirror
 # http://madgraph.physics.illinois.edu/Downloads/MG5aMC_PY8_interface/
 ARG MG5aMC_PY8_INTERFACE_VERSION=1.2
