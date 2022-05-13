@@ -69,7 +69,7 @@ RUN mkdir /code && \
     rm -rf /code
 
 # Install LHAPDF
-ARG LHAPDF_VERSION=6.3.0
+ARG LHAPDF_VERSION=6.5.0
 RUN mkdir /code && \
     cd /code && \
     wget https://lhapdf.hepforge.org/downloads/?f=LHAPDF-${LHAPDF_VERSION}.tar.gz -O LHAPDF-${LHAPDF_VERSION}.tar.gz && \
