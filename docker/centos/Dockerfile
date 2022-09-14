@@ -29,7 +29,7 @@ RUN yum update -y && \
     yum autoremove -y
 
 # Install HepMC
-ARG HEPMC_VERSION=2.06.11
+ARG HEPMC_VERSION=3.2.5
 RUN mkdir /code && \
     cd /code && \
     wget http://hepmc.web.cern.ch/hepmc/releases/hepmc${HEPMC_VERSION}.tgz && \

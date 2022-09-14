@@ -40,7 +40,7 @@ ENV PYTHONPATH=/usr/local/venv/lib:/usr/local/venv/MG5_aMC:$PYTHONPATH
 ENV LD_LIBRARY_PATH=/usr/local/venv/lib:$LD_LIBRARY_PATH
 
 # Install HepMC
-ARG HEPMC_VERSION=2.06.11
+ARG HEPMC_VERSION=3.2.5
 RUN mkdir /code && \
     cd /code && \
     wget http://hepmc.web.cern.ch/hepmc/releases/hepmc${HEPMC_VERSION}.tgz && \
