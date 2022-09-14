@@ -15,7 +15,7 @@ The Docker image contains:
 * [HepMC2](http://hepmc.web.cern.ch/hepmc/) `v2.06.11`
 * [LHAPDF](https://lhapdf.hepforge.org/) `v6.5.1`
 * [FastJet](http://fastjet.fr/) `v3.3.4`
-* [PYTHIA](https://pythia.org/) `v8.245`
+* [PYTHIA](https://pythia.org/) `v8.307`
 * [BOOST](https://www.boost.org/doc/libs/1_76_0/more/getting_started/unix-variants.html) `v1.76.0`
 
 Additionally contains MadGraph5 controlled dependencies for NLO processes:
