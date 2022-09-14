@@ -44,8 +44,8 @@ ARG HEPMC_VERSION=3.2.5
 RUN mkdir /code && \
     cd /code && \
     wget http://hepmc.web.cern.ch/hepmc/releases/HepMC3-${HEPMC_VERSION}.tar.gz && \
-    tar xvfz hepmc${HEPMC_VERSION}.tgz && \
-    mv HepMC-${HEPMC_VERSION} src && \
+    tar xvfz HepMC3-${HEPMC_VERSION}.tar.gz && \
+    mv HepMC3-${HEPMC_VERSION} src && \
     cmake \
       -DCMAKE_CXX_COMPILER=$(which g++) \
       -DCMAKE_BUILD_TYPE=Release \
