@@ -21,7 +21,6 @@ RUN apt-get -qq -y update && \
       libbz2-dev \
       rsync \
       bash-completion \
-      python3-dev \
       wget \
       ghostscript \
       bc \
