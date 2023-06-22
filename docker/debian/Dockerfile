@@ -207,6 +207,7 @@ RUN adduser \
     mkdir /docker && \
     chown -R moby /docker && \
     printf '\nexport PATH=/usr/local/venv/bin:"${PATH}"\n' >> /root/.bashrc && \
+    printf '\nexport PATH=/usr/local/venv/MG5_aMC/bin:"${PATH}"\n' >> /root/.bashrc && \
     cp /root/.bashrc /etc/.bashrc && \
     echo 'if [ -f /etc/.bashrc ]; then . /etc/.bashrc; fi' >> /etc/profile && \
     echo "SHELL=/bin/bash" >> /etc/environment
