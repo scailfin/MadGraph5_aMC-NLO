@@ -1,5 +1,7 @@
 ARG BUILDER_IMAGE=neubauergroup/centos-build-base:3.9.9
-FROM ${BUILDER_IMAGE} as builder
+FROM ${BUILDER_IMAGE} as base
+
+FROM base as builder
 
 USER root
 WORKDIR /
@@ -164,25 +166,47 @@ RUN sed -i '/fastjet =/s/^# //g' /usr/local/venv/MG5_aMC/input/mg5_configuration
     sed -i 's|# eps_viewer.*|eps_viewer = '$(command -v ghostscript)'|g' /usr/local/venv/MG5_aMC/input/mg5_configuration.txt && \
     sed -i 's|# fortran_compiler.*|fortran_compiler = '$(command -v gfortran)'|g' /usr/local/venv/MG5_aMC/input/mg5_configuration.txt
 
-# Create non-root user "docker"
-RUN useradd --shell /bin/bash -m docker && \
-   cp /root/.bashrc /home/docker/ && \
-   mkdir /home/docker/data && \
-   chown -R --from=root docker /home/docker && \
-   chown -R --from=root docker /usr/local/venv && \
-   chown -R --from=503 docker /usr/local/venv/MG5_aMC
+FROM base
+
+USER root
+
+SHELL [ "/bin/bash", "-c" ]
+
+# Create non-root user "moby" with uid 1000
+RUN adduser \
+      --shell /bin/bash \
+      --gecos "default user" \
+      --uid 1000 \
+      --disabled-password \
+      moby && \
+    chown -R moby /home/moby && \
+    mkdir -p /home/moby/work && \
+    chown -R moby /home/moby/work && \
+    mkdir /work && \
+    chown -R moby /work && \
+    mkdir /docker && \
+    chown -R moby /docker && \
+    printf '\nexport PATH=/usr/local/venv/bin:"${PATH}"\n' >> /root/.bashrc && \
+    cp /root/.bashrc /etc/.bashrc && \
+    echo 'if [ -f /etc/.bashrc ]; then . /etc/.bashrc; fi' >> /etc/profile && \
+    echo "SHELL=/bin/bash" >> /etc/environment
+
+USER moby
+
+ENV USER ${USER}
+ENV HOME /home/moby
+WORKDIR ${HOME}/work
+
+COPY --from=builder --chown=moby /usr/local/venv /usr/local/venv/
 
 # Use en_US.utf8 locale to avoid issues with ASCII encoding
 # as C.UTF-8 not available on CentOS 7
 ENV LC_ALL=en_US.utf8
 ENV LANG=en_US.utf8
 
-ENV HOME /home/docker
-WORKDIR ${HOME}/data
-
 ENV PYTHONPATH=/usr/local/venv/MG5_aMC:/usr/local/venv/lib:${PYTHONPATH}
 ENV LD_LIBRARY_PATH=/usr/local/venv/lib:$LD_LIBRARY_PATH
-ENV PATH=${HOME}/.local/bin:/root/.local/bin:$PATH
+ENV PATH=${HOME}/.local/bin:$PATH
 ENV PATH=/usr/local/venv/MG5_aMC/bin:$PATH
 
 # TODO: Install NLO dependencies independently for greater control
@@ -200,10 +224,6 @@ RUN if [ -f /root/.profile ];then cp /root/.profile ${HOME}/.profile;fi && \
     rm -rf test_nlo && \
     rm -rf $(find /usr/local/ -type d -name HEPToolsInstallers) && \
     rm py.py
-
-# Default user is root to avoid uid write permission problems with volumes
-ENV HOME /root
-WORKDIR ${HOME}/data
 
 ENTRYPOINT ["/bin/bash", "-l", "-c"]
 CMD ["/bin/bash"]
