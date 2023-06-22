@@ -172,6 +172,29 @@ USER root
 
 SHELL [ "/bin/bash", "-c" ]
 
+# CMake provided by base image
+RUN yum update -y && \
+    yum install -y \
+      gcc \
+      gcc-c++ \
+      gcc-gfortran \
+      make \
+      vim \
+      zlib \
+      zlib-devel \
+      bzip2 \
+      bzip2-devel \
+      rsync \
+      bash-completion \
+      bash-completion-extras \
+      wget \
+      curl \
+      ghostscript \
+      bc \
+      git && \
+    yum clean all && \
+    yum autoremove -y
+
 # Create non-root user "moby" with uid 1000
 RUN adduser \
       --shell /bin/bash \
