@@ -198,9 +198,7 @@ RUN yum update -y && \
 # Create non-root user "moby" with uid 1000
 RUN adduser \
       --shell /bin/bash \
-      --gecos "default user" \
       --uid 1000 \
-      --disabled-password \
       moby && \
     chown -R moby /home/moby && \
     mkdir -p /home/moby/work && \
