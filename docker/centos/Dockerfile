@@ -236,6 +236,7 @@ ENV PATH=/usr/local/venv/MG5_aMC/bin:$PATH
 # Running the NLO process forces install of cuttools and iregi
 RUN cp /etc/profile ${HOME}/.profile && \
     printf '\nexport PATH=/usr/local/venv/bin:"${PATH}"\n' >> "${HOME}"/.bashrc && \
+    printf '\nexport PATH=/usr/local/venv/MG5_aMC/bin:"${PATH}"\n' >> "${HOME}"/.bashrc && \
     printf "\nsource scl_source enable devtoolset-8\n" >> ${HOME}/.bash_profile && \
     python -m pip --no-cache-dir install --upgrade pip setuptools wheel && \
     python -m pip --no-cache-dir install six numpy && \

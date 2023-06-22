@@ -232,6 +232,7 @@ ENV LD_LIBRARY_PATH=/usr/local/venv/lib:$LD_LIBRARY_PATH
 # Running the NLO process forces install of cuttools and iregi
 RUN cp /etc/profile ${HOME}/.profile && \
     printf '\nexport PATH=/usr/local/venv/bin:"${PATH}"\n' >> "${HOME}"/.bashrc && \
+    printf '\nexport PATH=/usr/local/venv/MG5_aMC/bin:"${PATH}"\n' >> "${HOME}"/.bashrc && \
     echo "exit" | mg5_aMC && \
     echo "install ninja" | mg5_aMC && \
     echo "install collier" | mg5_aMC && \
