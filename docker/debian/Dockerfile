@@ -1,5 +1,7 @@
 ARG BUILDER_IMAGE=python:3.9-slim-bullseye
-FROM ${BUILDER_IMAGE} as builder
+FROM ${BUILDER_IMAGE} as base
+
+FROM base as builder
 
 USER root
 WORKDIR /
@@ -156,34 +158,82 @@ RUN sed -i '/fastjet =/s/^# //g' /usr/local/venv/MG5_aMC/input/mg5_configuration
     sed -i 's|# fortran_compiler.*|fortran_compiler = '$(command -v gfortran)'|g' /usr/local/venv/MG5_aMC/input/mg5_configuration.txt && \
     sed -i 's|# f2py_compiler_py3.*|f2py_compiler_py3 = '$(command -v f2py)'|g' /usr/local/venv/MG5_aMC/input/mg5_configuration.txt
 
+FROM base
+
+USER root
+
+SHELL [ "/bin/bash", "-c" ]
+
 # Enable tab completion by uncommenting it from /etc/bash.bashrc
 # The relevant lines are those below the phrase "enable bash completion in interactive shells"
 RUN export SED_RANGE="$(($(sed -n '\|enable bash completion in interactive shells|=' /etc/bash.bashrc)+1)),$(($(sed -n '\|enable bash completion in interactive shells|=' /etc/bash.bashrc)+7))" && \
     sed -i -e "${SED_RANGE}"' s/^#//' /etc/bash.bashrc && \
     unset SED_RANGE
 
-# Create non-root user "docker"
-RUN useradd --shell /bin/bash -m docker && \
-   cp /root/.bashrc /home/docker/ && \
-   mkdir /home/docker/data && \
-   chown -R --from=root docker /home/docker && \
-   chown -R --from=root docker /usr/local/venv && \
-   chown -R --from=503 docker /usr/local/venv/MG5_aMC
+RUN apt-get -qq -y update && \
+    apt-get -qq -y install --no-install-recommends \
+      gcc \
+      g++ \
+      gfortran \
+      make \
+      cmake \
+      vim \
+      zlib1g \
+      zlib1g-dev \
+      libbz2-dev \
+      rsync \
+      bash-completion \
+      wget \
+      curl \
+      ghostscript \
+      bc \
+      git && \
+    apt-get -y clean && \
+    apt-get -y autoremove && \
+    rm -rf /var/lib/apt/lists/*
+
+# Create non-root user "moby" with uid 1000
+RUN adduser \
+      --shell /bin/bash \
+      --gecos "default user" \
+      --uid 1000 \
+      --disabled-password \
+      moby && \
+    chown -R moby /home/moby && \
+    mkdir -p /home/moby/work && \
+    chown -R moby /home/moby/work && \
+    mkdir /work && \
+    chown -R moby /work && \
+    mkdir /docker && \
+    chown -R moby /docker && \
+    printf '\nexport PATH=/usr/local/venv/bin:"${PATH}"\n' >> /root/.bashrc && \
+    printf '\nexport PATH=/usr/local/venv/MG5_aMC/bin:"${PATH}"\n' >> /root/.bashrc && \
+    cp /root/.bashrc /etc/.bashrc && \
+    echo 'if [ -f /etc/.bashrc ]; then . /etc/.bashrc; fi' >> /etc/profile && \
+    echo "SHELL=/bin/bash" >> /etc/environment
+
+USER moby
+
+ENV USER ${USER}
+ENV HOME /home/moby
+WORKDIR ${HOME}/work
+
+COPY --from=builder --chown=moby /usr/local/venv /usr/local/venv/
 
 # Use C.UTF-8 locale to avoid issues with ASCII encoding
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
 
-ENV HOME /home/docker
-WORKDIR ${HOME}/data
-
-ENV PATH=${HOME}/.local/bin:/root/.local/bin:$PATH
+ENV PATH=${HOME}/.local/bin:/usr/local/venv/bin:"${PATH}"
 ENV PATH=/usr/local/venv/MG5_aMC/bin:$PATH
+ENV PYTHONPATH=/usr/local/venv/lib:/usr/local/venv/MG5_aMC:$PYTHONPATH
+ENV LD_LIBRARY_PATH=/usr/local/venv/lib:$LD_LIBRARY_PATH
 
 # TODO: Install NLO dependencies independently for greater control
 # Running the NLO process forces install of cuttools and iregi
-RUN if [ -f /root/.profile ];then cp /root/.profile ${HOME}/.profile;fi && \
-    cp /root/.bashrc ${HOME}/.bashrc && \
+RUN cp /etc/profile ${HOME}/.profile && \
+    printf '\nexport PATH=/usr/local/venv/bin:"${PATH}"\n' >> "${HOME}"/.bashrc && \
+    printf '\nexport PATH=/usr/local/venv/MG5_aMC/bin:"${PATH}"\n' >> "${HOME}"/.bashrc && \
     echo "exit" | mg5_aMC && \
     echo "install ninja" | mg5_aMC && \
     echo "install collier" | mg5_aMC && \
@@ -191,10 +241,6 @@ RUN if [ -f /root/.profile ];then cp /root/.profile ${HOME}/.profile;fi && \
     rm -rf test_nlo && \
     rm -rf $(find /usr/local/ -type d -name HEPToolsInstallers) && \
     rm py.py
-
-# Default user is root to avoid uid write permission problems with volumes
-ENV HOME /root
-WORKDIR ${HOME}/data
 
 ENTRYPOINT ["/bin/bash", "-l", "-c"]
 CMD ["/bin/bash"]
