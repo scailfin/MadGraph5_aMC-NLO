@@ -190,7 +190,7 @@ RUN apt-get -qq -y update && \
       git && \
     apt-get -y clean && \
     apt-get -y autoremove && \
-    rm -rf /var/lib/apt/lists/* && \
+    rm -rf /var/lib/apt/lists/*
 
 # Create non-root user "moby" with uid 1000
 RUN adduser \
