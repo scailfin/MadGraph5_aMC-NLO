@@ -230,8 +230,8 @@ ENV LD_LIBRARY_PATH=/usr/local/venv/lib:$LD_LIBRARY_PATH
 
 # TODO: Install NLO dependencies independently for greater control
 # Running the NLO process forces install of cuttools and iregi
-RUN if [ -f /root/.profile ];then cp /root/.profile ${HOME}/.profile;fi && \
-    cp /root/.bashrc ${HOME}/.bashrc && \
+RUN cp /etc/profile ${HOME}/.profile && \
+    printf '\nexport PATH=/usr/local/venv/bin:"${PATH}"\n' >> "${HOME}"/.bashrc && \
     echo "exit" | mg5_aMC && \
     echo "install ninja" | mg5_aMC && \
     echo "install collier" | mg5_aMC && \
