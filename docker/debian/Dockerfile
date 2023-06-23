@@ -1,4 +1,4 @@
-ARG BUILDER_IMAGE=python:3.11-slim-bullseye
+ARG BUILDER_IMAGE=python:3.10-slim-bullseye
 FROM ${BUILDER_IMAGE} as base
 
 FROM base as builder
