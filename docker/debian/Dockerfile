@@ -37,7 +37,7 @@ RUN apt-get -qq -y update && \
     python -m pip list && \
     printf '\nexport PATH=/usr/local/venv/bin:"${PATH}"\n' >> /root/.bashrc
 
-ENV PYTHONPATH=/usr/local/venv/lib:/usr/local/venv/MG5_aMC:$PYTHONPATH
+ENV PYTHONPATH=/usr/local/venv/lib:$PYTHONPATH
 ENV LD_LIBRARY_PATH=/usr/local/venv/lib:$LD_LIBRARY_PATH
 
 # Install HepMC
@@ -226,7 +226,7 @@ ENV LANG=C.UTF-8
 
 ENV PATH=${HOME}/.local/bin:/usr/local/venv/bin:"${PATH}"
 ENV PATH=/usr/local/venv/MG5_aMC/bin:$PATH
-ENV PYTHONPATH=/usr/local/venv/lib:/usr/local/venv/MG5_aMC:$PYTHONPATH
+ENV PYTHONPATH=/usr/local/venv/lib:$PYTHONPATH
 ENV LD_LIBRARY_PATH=/usr/local/venv/lib:$LD_LIBRARY_PATH
 
 # TODO: Install NLO dependencies independently for greater control
