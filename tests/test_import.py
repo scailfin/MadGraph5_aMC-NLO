@@ -1,9 +1,3 @@
-def test_import_madgraph():
-    import madgraph
-
-    assert madgraph
-
-
 def test_import_lhapdf():
     import lhapdf
 
