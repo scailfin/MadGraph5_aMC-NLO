@@ -118,7 +118,7 @@ jobs:
           docker run --rm
           -v $PWD:$PWD
           scailfin/madgraph5-amc-nlo-centos:sha-${GITHUB_SHA::8}
-          "cp -r ${PWD}/tests .; cd tests; mg5_aMC test_root_path.mg5; ./bhabha/bin/madevent launch -f"
+          "cp -r ${PWD}/tests .; cd tests; bash test_root_path.sh"
 
       - name: Check NLO process has dependencies
         run: >-

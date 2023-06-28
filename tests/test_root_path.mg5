@@ -1,3 +1,0 @@
-# c.f. https://github.com/scailfin/MadGraph5_aMC-NLO/pull/72
-generate e+ e- > e+ e-
-output bhabha
